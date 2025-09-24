@@ -615,9 +615,10 @@ router.get('/search/organizations', [
  * @access  Public (OtterAI webhook)
  */
 router.post('/actions/otterai-analyze', [
-  body('transcript_data').optional().isURL().withMessage('Transcript URL must be a valid URL'),
-  body('analyzed_data').optional().isObject().withMessage('Analyzed data must be an object'),
-  body('captured_data').optional().isURL().withMessage('Captured data URL must be a valid URL'),
+  body('transcript_data').optional().isString().withMessage('Transcript data must be a string'),
+  body('sentiment_analysis').optional().isObject().withMessage('Sentiment analysis must be an object'),
+  body('user_identification').optional().isObject().withMessage('User identification must be an object'),
+  body('meeting_id').optional().isString().withMessage('Meeting ID must be a string'),
   body('salesCallId').optional().isUUID().withMessage('Valid sales call ID is required if provided'),
   body('organizationId').optional().isUUID().withMessage('Valid organization ID is required if provided'),
   body('userId').optional().isUUID().withMessage('Valid user ID is required if provided')
@@ -638,8 +639,9 @@ router.post('/actions/otterai-analyze', [
 
     const { 
       transcript_data, 
-      analyzed_data, 
-      captured_data, 
+      sentiment_analysis,
+      user_identification,
+      meeting_id,
       salesCallId, 
       organizationId, 
       userId 
@@ -676,9 +678,11 @@ router.post('/actions/otterai-analyze', [
       salesCallId,
       organizationId,
       userId,
+      meeting_id,
       hasTranscript: !!transcript_data,
-      hasAnalyzedData: !!analyzed_data,
-      hasCapturedData: !!captured_data
+      hasSentimentAnalysis: !!sentiment_analysis,
+      hasUserIdentification: !!user_identification,
+      transcriptLength: transcript_data ? transcript_data.length : 0
     });
 
     // If we have a sales call ID, update the sales call with the analyzed data
@@ -688,26 +692,36 @@ router.post('/actions/otterai-analyze', [
         
         const salesCall = await SalesCall.findByPk(salesCallId);
         if (salesCall) {
-          // Prepare analysis data, embedding captured data URL if provided
-          const analysisData = analyzed_data ? { ...analyzed_data } : {};
-          if (captured_data) {
-            // To use uploaded URL instead, switch to uploadedCapturedDataUrl when uncommented
-            analysisData.captured_data_url = captured_data; // or uploadedCapturedDataUrl
-          }
+          // Prepare analysis data from sentiment analysis
+          const analysisData = {
+            meeting_id,
+            sentiment_analysis,
+            user_identification,
+            transcript_data: transcript_data || null
+          };
 
-          // Update the sales call with analyzed data and URLs
+          // Extract performance metrics from sentiment analysis
+          const performanceScore = sentiment_analysis?.meeting_score ? 
+            parseFloat(sentiment_analysis.meeting_score) : null;
+          
+          const strengths = sentiment_analysis?.strengths ? 
+            sentiment_analysis.strengths.split(',').map(s => s.trim()).filter(s => s) : [];
+          
+          const weaknesses = sentiment_analysis?.weaknesses ? 
+            sentiment_analysis.weaknesses.split(',').map(s => s.trim()).filter(s => s) : [];
+
+          // Update the sales call with analyzed data
           await salesCall.update({
             analysis_data: analysisData,
-            // To use uploaded URL instead, switch to uploadedTranscriptUrl when uncommented
-            transcript_url: transcript_data || null, // or uploadedTranscriptUrl
-            performance_score: analyzed_data?.performance_score || null,
-            strengths: analyzed_data?.strengths || [],
-            weaknesses: analyzed_data?.weaknesses || [],
-            recommendations: analyzed_data?.recommendations || [],
-            key_topics_covered: analyzed_data?.key_topics_covered || [],
-            objections_handled: analyzed_data?.objections_handled || [],
-            customer_sentiment: analyzed_data?.customer_sentiment || null,
-            script_compliance: analyzed_data?.script_compliance || null
+            transcript_url: transcript_data || null,
+            performance_score: performanceScore,
+            strengths: strengths,
+            weaknesses: weaknesses,
+            recommendations: [], // Can be populated from additional analysis
+            key_topics_covered: [], // Can be extracted from transcript analysis
+            objections_handled: [], // Can be extracted from transcript analysis
+            customer_sentiment: sentiment_analysis?.sentiment_category || null,
+            script_compliance: null // Can be calculated from transcript analysis
           });
 
           logger.info(`Sales call ${salesCallId} updated with OtterAI analysis data`);
@@ -718,8 +732,8 @@ router.post('/actions/otterai-analyze', [
       }
     }
 
-    // Create analytics record if we have analyzed data
-    if (analyzed_data && organizationId) {
+    // Create analytics record if we have sentiment analysis data
+    if (sentiment_analysis && organizationId) {
       try {
         const { Analytics } = getModels();
         
@@ -727,13 +741,14 @@ router.post('/actions/otterai-analyze', [
           organization_id: organizationId,
           user_id: userId,
           report_type: 'otterai_analysis',
-          report_name: `OtterAI Analysis - ${salesCallId || 'General'}`,
+          report_name: `OtterAI Analysis - ${salesCallId || meeting_id || 'General'}`,
           report_data: {
-            // To use uploaded URLs instead, switch to uploadedTranscriptUrl/uploadedCapturedDataUrl when uncommented
-            transcript_url: transcript_data || null, // or uploadedTranscriptUrl
-            analyzed_data,
-            captured_data_url: captured_data || null, // or uploadedCapturedDataUrl
-            sales_call_id: salesCallId
+            transcript_data: transcript_data || null,
+            sentiment_analysis,
+            user_identification,
+            meeting_id,
+            sales_call_id: salesCallId,
+            analysis_timestamp: new Date().toISOString()
           },
           filters: {},
           date_range: {
@@ -762,12 +777,14 @@ router.post('/actions/otterai-analyze', [
           user_id: userId,
           type: 'otterai_analysis_complete',
           title: 'OtterAI Analysis Complete',
-          message: 'Your sales call has been analyzed by OtterAI. Check the analytics dashboard for insights.',
+          message: 'Your meeting has been analyzed by OtterAI. Check the analytics dashboard for insights.',
           priority: 'medium',
           data: {
             salesCallId,
+            meeting_id,
             hasTranscript: !!transcript_data,
-            hasAnalysis: !!analyzed_data
+            hasSentimentAnalysis: !!sentiment_analysis,
+            performanceScore: sentiment_analysis?.meeting_score || null
           }
         });
 
@@ -786,10 +803,18 @@ router.post('/actions/otterai-analyze', [
         salesCallId,
         organizationId,
         userId,
+        meeting_id,
         dataReceived: {
           transcript: !!transcript_data,
-          analyzed: !!analyzed_data,
-          captured: !!captured_data
+          sentimentAnalysis: !!sentiment_analysis,
+          userIdentification: !!user_identification,
+          transcriptLength: transcript_data ? transcript_data.length : 0
+        },
+        analysisSummary: {
+          sentimentCategory: sentiment_analysis?.sentiment_category || null,
+          meetingScore: sentiment_analysis?.meeting_score || null,
+          hasStrengths: !!sentiment_analysis?.strengths,
+          hasWeaknesses: !!sentiment_analysis?.weaknesses
         }
       }
     });
@@ -820,12 +845,13 @@ router.get('/test/otterai', (req, res) => {
     endpoint: '/api/v1/zapier/actions/otterai-analyze',
     method: 'POST',
     expectedData: {
-      transcript_data: 'string (optional)',
-      analyzed_data: 'object (optional)',
-      captured_data: 'object (optional)',
-      salesCallId: 'UUID (optional)',
-      organizationId: 'UUID (optional)',
-      userId: 'UUID (optional)'
+      transcript_data: 'string (optional) - Full transcript text',
+      sentiment_analysis: 'object (optional) - Contains sentiment_category, strengths, weaknesses, meeting_score',
+      user_identification: 'object (optional) - Contains user_email, user_name, calendar_guests, meeting_id',
+      meeting_id: 'string (optional) - OtterAI meeting identifier',
+      salesCallId: 'UUID (optional) - Internal sales call ID',
+      organizationId: 'UUID (optional) - Organization ID',
+      userId: 'UUID (optional) - User ID'
     }
   });
 });

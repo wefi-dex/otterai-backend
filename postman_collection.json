@@ -1,0 +1,383 @@
+{
+  "info": {
+    "_postman_id": "b6c2f0c8-3f6a-4c1f-9a3f-otterai-collection",
+    "name": "OtterAI Backend API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Postman collection for OtterAI Backend API endpoints. Configure variables in the collection or an environment: baseUrl, apiVersion, and authToken."
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3000" },
+    { "key": "apiVersion", "value": "v1" },
+    { "key": "authToken", "value": "" }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      { "key": "token", "value": "{{authToken}}", "type": "string" }
+    ]
+  },
+  "item": [
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "GET /health",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/health"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "POST /api/{{apiVersion}}/auth/login",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": "{{baseUrl}}/api/{{apiVersion}}/auth/login"
+          }
+        },
+        {
+          "name": "POST /api/{{apiVersion}}/auth/register",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"password123\",\n  \"firstName\": \"Alice\",\n  \"lastName\": \"Doe\",\n  \"organizationId\": \"00000000-0000-0000-0000-000000000000\",\n  \"role\": \"sales_manager\"\n}"
+            },
+            "url": "{{baseUrl}}/api/{{apiVersion}}/auth/register"
+          }
+        },
+        {
+          "name": "POST /api/{{apiVersion}}/auth/forgot-password",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"email\": \"user@example.com\"\n}" },
+            "url": "{{baseUrl}}/api/{{apiVersion}}/auth/forgot-password"
+          }
+        },
+        {
+          "name": "POST /api/{{apiVersion}}/auth/reset-password",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"token\": \"reset-token\",\n  \"password\": \"newPassword123\"\n}" },
+            "url": "{{baseUrl}}/api/{{apiVersion}}/auth/reset-password"
+          }
+        },
+        {
+          "name": "POST /api/{{apiVersion}}/auth/refresh",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"refreshToken\": \"<refresh-token>\"\n}" },
+            "url": "{{baseUrl}}/api/{{apiVersion}}/auth/refresh"
+          }
+        },
+        {
+          "name": "POST /api/{{apiVersion}}/auth/logout",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/{{apiVersion}}/auth/logout"
+          }
+        },
+        {
+          "name": "GET /api/{{apiVersion}}/auth/me",
+          "request": { "method": "GET", "url": "{{baseUrl}}/api/{{apiVersion}}/auth/me" }
+        },
+        {
+          "name": "POST /api/{{apiVersion}}/auth/setup-first-admin",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@example.com\",\n  \"password\": \"password123\",\n  \"firstName\": \"Super\",\n  \"lastName\": \"Admin\",\n  \"organizationName\": \"Acme HQ\"\n}"
+            },
+            "url": "{{baseUrl}}/api/{{apiVersion}}/auth/setup-first-admin"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        { "name": "GET /api/{{apiVersion}}/users", "request": { "method": "GET", "url": "{{baseUrl}}/api/{{apiVersion}}/users?page=1&limit=10" } },
+        { "name": "GET /api/{{apiVersion}}/users/:id", "request": { "method": "GET", "url": "{{baseUrl}}/api/{{apiVersion}}/users/{{userId}}" } },
+        {
+          "name": "POST /api/{{apiVersion}}/users",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"email\": \"rep@example.com\",\n  \"password\": \"password123\",\n  \"firstName\": \"Bob\",\n  \"lastName\": \"Smith\",\n  \"role\": \"sales_representative\"\n}" },
+            "url": "{{baseUrl}}/api/{{apiVersion}}/users"
+          }
+        },
+        {
+          "name": "PUT /api/{{apiVersion}}/users/:id",
+          "request": {
+            "method": "PUT",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"firstName\": \"Robert\"\n}" },
+            "url": "{{baseUrl}}/api/{{apiVersion}}/users/{{userId}}"
+          }
+        },
+        { "name": "DELETE /api/{{apiVersion}}/users/:id", "request": { "method": "DELETE", "url": "{{baseUrl}}/api/{{apiVersion}}/users/{{userId}}" } }
+      ]
+    },
+    {
+      "name": "Organizations",
+      "item": [
+        { "name": "GET /api/{{apiVersion}}/organizations", "request": { "method": "GET", "url": "{{baseUrl}}/api/{{apiVersion}}/organizations?page=1&limit=10" } },
+        { "name": "GET /api/{{apiVersion}}/organizations/:id", "request": { "method": "GET", "url": "{{baseUrl}}/api/{{apiVersion}}/organizations/{{organizationId}}" } },
+        {
+          "name": "POST /api/{{apiVersion}}/organizations",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Acme Branch\",\n  \"type\": \"branch\",\n  \"subscriptionPlan\": \"basic\"\n}" },
+            "url": "{{baseUrl}}/api/{{apiVersion}}/organizations"
+          }
+        },
+        { "name": "PUT /api/{{apiVersion}}/organizations/:id", "request": { "method": "PUT", "header": [ { "key": "Content-Type", "value": "application/json" } ], "body": { "mode": "raw", "raw": "{\n  \"name\": \"Acme Updated\"\n}" }, "url": "{{baseUrl}}/api/{{apiVersion}}/organizations/{{organizationId}}" } },
+        { "name": "DELETE /api/{{apiVersion}}/organizations/:id", "request": { "method": "DELETE", "url": "{{baseUrl}}/api/{{apiVersion}}/organizations/{{organizationId}}" } },
+        { "name": "GET /api/{{apiVersion}}/organizations/:id/branches", "request": { "method": "GET", "url": "{{baseUrl}}/api/{{apiVersion}}/organizations/{{organizationId}}/branches" } },
+        { "name": "GET /api/{{apiVersion}}/organizations/:id/stats", "request": { "method": "GET", "url": "{{baseUrl}}/api/{{apiVersion}}/organizations/{{organizationId}}/stats" } }
+      ]
+    },
+    {
+      "name": "Sales Calls",
+      "item": [
+        { "name": "GET /api/{{apiVersion}}/sales-calls", "request": { "method": "GET", "url": "{{baseUrl}}/api/{{apiVersion}}/sales-calls?page=1&limit=10" } },
+        { "name": "GET /api/{{apiVersion}}/sales-calls/:id", "request": { "method": "GET", "url": "{{baseUrl}}/api/{{apiVersion}}/sales-calls/{{salesCallId}}" } },
+        {
+          "name": "POST /api/{{apiVersion}}/sales-calls",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"customerName\": \"John Customer\",\n  \"appointmentDate\": \"2025-01-01T10:00:00Z\",\n  \"salesRepresentativeId\": \"00000000-0000-0000-0000-000000000000\"\n}" },
+            "url": "{{baseUrl}}/api/{{apiVersion}}/sales-calls"
+          }
+        },
+        { "name": "PUT /api/{{apiVersion}}/sales-calls/:id", "request": { "method": "PUT", "header": [ { "key": "Content-Type", "value": "application/json" } ], "body": { "mode": "raw", "raw": "{\n  \"status\": \"completed\"\n}" }, "url": "{{baseUrl}}/api/{{apiVersion}}/sales-calls/{{salesCallId}}" } },
+        { "name": "DELETE /api/{{apiVersion}}/sales-calls/:id", "request": { "method": "DELETE", "url": "{{baseUrl}}/api/{{apiVersion}}/sales-calls/{{salesCallId}}" } },
+        { "name": "POST /api/{{apiVersion}}/sales-calls/:id/start", "request": { "method": "POST", "url": "{{baseUrl}}/api/{{apiVersion}}/sales-calls/{{salesCallId}}/start" } },
+        {
+          "name": "POST /api/{{apiVersion}}/sales-calls/:id/complete",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"outcome\": \"sale\",\n  \"saleAmount\": 1000\n}" },
+            "url": "{{baseUrl}}/api/{{apiVersion}}/sales-calls/{{salesCallId}}/complete"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Analytics",
+      "item": [
+        { "name": "GET /api/{{apiVersion}}/analytics/overview", "request": { "method": "GET", "url": "{{baseUrl}}/api/{{apiVersion}}/analytics/overview" } },
+        { "name": "GET /api/{{apiVersion}}/analytics/performance", "request": { "method": "GET", "url": "{{baseUrl}}/api/{{apiVersion}}/analytics/performance" } },
+        { "name": "GET /api/{{apiVersion}}/analytics/user/:userId", "request": { "method": "GET", "url": "{{baseUrl}}/api/{{apiVersion}}/analytics/user/{{userId}}" } },
+        { "name": "GET /api/{{apiVersion}}/analytics/trends", "request": { "method": "GET", "url": "{{baseUrl}}/api/{{apiVersion}}/analytics/trends" } }
+      ]
+    },
+    {
+      "name": "Notifications",
+      "item": [
+        { "name": "GET /api/{{apiVersion}}/notifications", "request": { "method": "GET", "url": "{{baseUrl}}/api/{{apiVersion}}/notifications?page=1&limit=20" } },
+        { "name": "GET /api/{{apiVersion}}/notifications/unread", "request": { "method": "GET", "url": "{{baseUrl}}/api/{{apiVersion}}/notifications/unread" } },
+        { "name": "PUT /api/{{apiVersion}}/notifications/:id/read", "request": { "method": "PUT", "url": "{{baseUrl}}/api/{{apiVersion}}/notifications/{{notificationId}}/read" } },
+        { "name": "PUT /api/{{apiVersion}}/notifications/read-all", "request": { "method": "PUT", "url": "{{baseUrl}}/api/{{apiVersion}}/notifications/read-all" } },
+        { "name": "DELETE /api/{{apiVersion}}/notifications/:id", "request": { "method": "DELETE", "url": "{{baseUrl}}/api/{{apiVersion}}/notifications/{{notificationId}}" } },
+        {
+          "name": "POST /api/{{apiVersion}}/notifications",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"userId\": \"00000000-0000-0000-0000-000000000000\",\n  \"type\": \"reminder\",\n  \"title\": \"Reminder\",\n  \"message\": \"Complete your tasks\"\n}" },
+            "url": "{{baseUrl}}/api/{{apiVersion}}/notifications"
+          }
+        },
+        {
+          "name": "GET /api/{{apiVersion}}/notifications/organization",
+          "request": { "method": "GET", "url": "{{baseUrl}}/api/{{apiVersion}}/notifications/organization?page=1&limit=20" }
+        },
+        {
+          "name": "POST /api/{{apiVersion}}/notifications/send-email",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"userId\": \"00000000-0000-0000-0000-000000000000\",\n  \"subject\": \"Subject\",\n  \"message\": \"Hello\"\n}" },
+            "url": "{{baseUrl}}/api/{{apiVersion}}/notifications/send-email"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Files",
+      "item": [
+        {
+          "name": "POST /api/{{apiVersion}}/files/upload",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "file", "type": "file", "src": [] },
+                { "key": "category", "value": "general", "type": "text" },
+                { "key": "description", "value": "Optional description", "type": "text" }
+              ]
+            },
+            "url": "{{baseUrl}}/api/{{apiVersion}}/files/upload"
+          }
+        },
+        {
+          "name": "POST /api/{{apiVersion}}/files/upload-sales-call",
+          "request": {
+            "method": "POST",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "recording", "type": "file", "src": [] },
+                { "key": "salesCallId", "value": "{{salesCallId}}", "type": "text" },
+                { "key": "description", "value": "Call recording", "type": "text" }
+              ]
+            },
+            "url": "{{baseUrl}}/api/{{apiVersion}}/files/upload-sales-call"
+          }
+        },
+        { "name": "GET /api/{{apiVersion}}/files/:fileKey", "request": { "method": "GET", "url": "{{baseUrl}}/api/{{apiVersion}}/files/{{fileKey}}" } },
+        { "name": "GET /api/{{apiVersion}}/files/:fileKey?download=true", "request": { "method": "GET", "url": "{{baseUrl}}/api/{{apiVersion}}/files/{{fileKey}}?download=true" } },
+        { "name": "DELETE /api/{{apiVersion}}/files/:fileKey", "request": { "method": "DELETE", "url": "{{baseUrl}}/api/{{apiVersion}}/files/{{fileKey}}" } },
+        { "name": "GET /api/{{apiVersion}}/files/status", "request": { "method": "GET", "url": "{{baseUrl}}/api/{{apiVersion}}/files/status" } }
+      ]
+    },
+    {
+      "name": "Admin",
+      "item": [
+        { "name": "GET /api/{{apiVersion}}/admin/dashboard", "request": { "method": "GET", "url": "{{baseUrl}}/api/{{apiVersion}}/admin/dashboard" } },
+        { "name": "GET /api/{{apiVersion}}/admin/system-stats", "request": { "method": "GET", "url": "{{baseUrl}}/api/{{apiVersion}}/admin/system-stats" } },
+        { "name": "GET /api/{{apiVersion}}/admin/users", "request": { "method": "GET", "url": "{{baseUrl}}/api/{{apiVersion}}/admin/users?page=1&limit=20" } },
+        {
+          "name": "PUT /api/{{apiVersion}}/admin/users/:id/status",
+          "request": {
+            "method": "PUT",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"status\": \"active\"\n}" },
+            "url": "{{baseUrl}}/api/{{apiVersion}}/admin/users/{{userId}}/status"
+          }
+        },
+        { "name": "GET /api/{{apiVersion}}/admin/analytics", "request": { "method": "GET", "url": "{{baseUrl}}/api/{{apiVersion}}/admin/analytics" } },
+        {
+          "name": "POST /api/{{apiVersion}}/admin/bulk-actions",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"action\": \"activate\",\n  \"userIds\": [\"00000000-0000-0000-0000-000000000000\"]\n}" },
+            "url": "{{baseUrl}}/api/{{apiVersion}}/admin/bulk-actions"
+          }
+        }
+      ]
+    },
+    {
+      "name": "OtterAI",
+      "item": [
+        {
+          "name": "POST /api/{{apiVersion}}/otterai/start-recording",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"salesCallId\": \"{{salesCallId}}\"\n}" },
+            "url": "{{baseUrl}}/api/{{apiVersion}}/otterai/start-recording"
+          }
+        },
+        {
+          "name": "POST /api/{{apiVersion}}/otterai/stop-recording",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"recordingId\": \"<recording-id>\"\n}" },
+            "url": "{{baseUrl}}/api/{{apiVersion}}/otterai/stop-recording"
+          }
+        },
+        { "name": "GET /api/{{apiVersion}}/otterai/recording/:recordingId", "request": { "method": "GET", "url": "{{baseUrl}}/api/{{apiVersion}}/otterai/recording/{{recordingId}}" } },
+        {
+          "name": "POST /api/{{apiVersion}}/otterai/analyze/:salesCallId",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"recordingId\": \"<recording-id>\"\n}" },
+            "url": "{{baseUrl}}/api/{{apiVersion}}/otterai/analyze/{{salesCallId}}"
+          }
+        },
+        { "name": "POST /api/{{apiVersion}}/otterai/webhook", "request": { "method": "POST", "header": [ { "key": "Content-Type", "value": "application/json" } ], "body": { "mode": "raw", "raw": "{\n  \"event_type\": \"test\"\n}" }, "url": "{{baseUrl}}/api/{{apiVersion}}/otterai/webhook" } },
+        { "name": "GET /api/{{apiVersion}}/otterai/status", "request": { "method": "GET", "url": "{{baseUrl}}/api/{{apiVersion}}/otterai/status" } }
+      ]
+    },
+    {
+      "name": "Zapier",
+      "item": [
+        {
+          "name": "POST /api/{{apiVersion}}/zapier/webhook/sales-call-completed",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"salesCallId\": \"{{salesCallId}}\",\n  \"organizationId\": \"{{organizationId}}\",\n  \"eventType\": \"completed\"\n}" },
+            "url": "{{baseUrl}}/api/{{apiVersion}}/zapier/webhook/sales-call-completed"
+          }
+        },
+        {
+          "name": "POST /api/{{apiVersion}}/zapier/webhook/performance-alert",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"userId\": \"{{userId}}\",\n  \"organizationId\": \"{{organizationId}}\",\n  \"alertType\": \"low_performance\",\n  \"metrics\": {\n    \"score\": 50\n  }\n}" },
+            "url": "{{baseUrl}}/api/{{apiVersion}}/zapier/webhook/performance-alert"
+          }
+        },
+        { "name": "GET /api/{{apiVersion}}/zapier/triggers/sales-calls", "request": { "method": "GET", "url": "{{baseUrl}}/api/{{apiVersion}}/zapier/triggers/sales-calls?status=completed&limit=10" } },
+        { "name": "GET /api/{{apiVersion}}/zapier/triggers/performance-alerts", "request": { "method": "GET", "url": "{{baseUrl}}/api/{{apiVersion}}/zapier/triggers/performance-alerts?limit=10" } },
+        {
+          "name": "POST /api/{{apiVersion}}/zapier/actions/create-sales-call",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"customerName\": \"New Customer\",\n  \"customerEmail\": \"c@example.com\",\n  \"appointmentDate\": \"2025-01-01T12:00:00Z\",\n  \"salesRepresentativeId\": \"{{userId}}\",\n  \"organizationId\": \"{{organizationId}}\"\n}" },
+            "url": "{{baseUrl}}/api/{{apiVersion}}/zapier/actions/create-sales-call"
+          }
+        },
+        {
+          "name": "POST /api/{{apiVersion}}/zapier/actions/send-notification",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"userId\": \"{{userId}}\",\n  \"organizationId\": \"{{organizationId}}\",\n  \"title\": \"Test\",\n  \"message\": \"Hello from Zapier\"\n}" },
+            "url": "{{baseUrl}}/api/{{apiVersion}}/zapier/actions/send-notification"
+          }
+        },
+        { "name": "POST /api/{{apiVersion}}/zapier/actions/otterai-analyze", "request": { "method": "POST", "header": [ { "key": "Content-Type", "value": "application/json" } ], "body": { "mode": "raw", "raw": "{\n  \"salesCallId\": \"{{salesCallId}}\",\n  \"organizationId\": \"{{organizationId}}\",\n  \"userId\": \"{{userId}}\",\n  \"analyzed_data\": {}\n}" }, "url": "{{baseUrl}}/api/{{apiVersion}}/zapier/actions/otterai-analyze" } },
+        { "name": "GET /api/{{apiVersion}}/zapier/test/otterai", "request": { "method": "GET", "url": "{{baseUrl}}/api/{{apiVersion}}/zapier/test/otterai" } }
+      ]
+    }
+  ]
+}
+
+
+

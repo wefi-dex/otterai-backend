@@ -28,3 +28,578 @@
 2025-09-03 07:25:17 [INFO]: SendGrid email service initialized {"service":"otterai-sales-analytics","environment":"development"}
 2025-09-03 07:25:17 [INFO]: IDrive E2 file storage service initialized {"service":"otterai-sales-analytics","environment":"development"}
 2025-09-03 07:25:18 [INFO]: 🚀 OtterAI Sales Analytics Backend Server running on port 3000 {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-17 22:38:24 [WARN]: SendGrid API key not found. Email service will not work. {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-17 22:38:27 [WARN]: IDrive E2 file storage service not configured. File uploads will fail. {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-17 22:38:27 [ERROR]: Unable to connect to the PostgreSQL database: SASL: SCRAM-SERVER-FIRST-MESSAGE: client password must be a string {"service":"otterai-sales-analytics","environment":"development","name":"SequelizeConnectionError","parent":{},"original":{}}
+SequelizeConnectionError: SASL: SCRAM-SERVER-FIRST-MESSAGE: client password must be a string
+    at Client._connectionCallback (D:\Projects\otterai\otterai-backend\node_modules\sequelize\lib\dialects\postgres\connection-manager.js:149:20)
+    at Client._handleErrorWhileConnecting (D:\Projects\otterai\otterai-backend\node_modules\pg\lib\client.js:336:19)
+    at Client._handleErrorEvent (D:\Projects\otterai\otterai-backend\node_modules\pg\lib\client.js:346:19)
+    at Connection.emit (node:events:507:28)
+    at Client._handleAuthSASLContinue (D:\Projects\otterai\otterai-backend\node_modules\pg\lib\client.js:284:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+2025-09-17 22:38:42 [WARN]: SendGrid API key not found. Email service will not work. {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-17 22:38:42 [WARN]: IDrive E2 file storage service not configured. File uploads will fail. {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-17 22:38:42 [ERROR]: Unable to connect to the PostgreSQL database: SASL: SCRAM-SERVER-FIRST-MESSAGE: client password must be a string {"service":"otterai-sales-analytics","environment":"development","name":"SequelizeConnectionError","parent":{},"original":{}}
+SequelizeConnectionError: SASL: SCRAM-SERVER-FIRST-MESSAGE: client password must be a string
+    at Client._connectionCallback (D:\Projects\otterai\otterai-backend\node_modules\sequelize\lib\dialects\postgres\connection-manager.js:149:20)
+    at Client._handleErrorWhileConnecting (D:\Projects\otterai\otterai-backend\node_modules\pg\lib\client.js:336:19)
+    at Client._handleErrorEvent (D:\Projects\otterai\otterai-backend\node_modules\pg\lib\client.js:346:19)
+    at Connection.emit (node:events:507:28)
+    at Client._handleAuthSASLContinue (D:\Projects\otterai\otterai-backend\node_modules\pg\lib\client.js:284:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+2025-09-17 22:40:13 [INFO]: SendGrid email service initialized {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-17 22:40:13 [INFO]: IDrive E2 file storage service initialized {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-17 22:40:13 [ERROR]: Unable to connect to the PostgreSQL database: no pg_hba.conf entry for host "127.0.0.1", user "postgres", database "otterai_sales_analytics", no encryption {"service":"otterai-sales-analytics","environment":"development","name":"SequelizeConnectionError","parent":{"length":172,"name":"error","severity":"FATAL","code":"28000","file":"auth.c","line":"540","routine":"ClientAuthentication"},"original":{"length":172,"name":"error","severity":"FATAL","code":"28000","file":"auth.c","line":"540","routine":"ClientAuthentication"}}
+SequelizeConnectionError: no pg_hba.conf entry for host "127.0.0.1", user "postgres", database "otterai_sales_analytics", no encryption
+    at Client._connectionCallback (D:\Projects\otterai\otterai-backend\node_modules\sequelize\lib\dialects\postgres\connection-manager.js:145:24)
+    at Client._handleErrorWhileConnecting (D:\Projects\otterai\otterai-backend\node_modules\pg\lib\client.js:336:19)
+    at Client._handleErrorMessage (D:\Projects\otterai\otterai-backend\node_modules\pg\lib\client.js:356:19)
+    at Connection.emit (node:events:507:28)
+    at D:\Projects\otterai\otterai-backend\node_modules\pg\lib\connection.js:116:12
+    at Parser.parse (D:\Projects\otterai\otterai-backend\node_modules\pg-protocol\dist\parser.js:36:17)
+    at Socket.<anonymous> (D:\Projects\otterai\otterai-backend\node_modules\pg-protocol\dist\index.js:11:42)
+    at Socket.emit (node:events:507:28)
+    at addChunk (node:internal/streams/readable:559:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+2025-09-17 22:49:01 [INFO]: SendGrid email service initialized {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-17 22:49:01 [INFO]: IDrive E2 file storage service initialized {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-17 22:49:01 [INFO]: 🚀 OtterAI Sales Analytics Backend Server running on port 3000 {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-17 22:51:06 [INFO]: ::ffff:127.0.0.1 - - [17/Sep/2025:13:51:06 +0000] "GET /api/v1/users HTTP/1.1" 401 58 "http://localhost:4000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-17 22:51:06 [INFO]: ::ffff:127.0.0.1 - - [17/Sep/2025:13:51:06 +0000] "GET /api/v1/organizations HTTP/1.1" 401 58 "http://localhost:4000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-17 22:52:49 [INFO]: ::ffff:127.0.0.1 - - [17/Sep/2025:13:52:49 +0000] "GET /api/v1/auth/me HTTP/1.1" 200 96 "http://localhost:4000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-17 22:52:49 [INFO]: ::ffff:127.0.0.1 - - [17/Sep/2025:13:52:49 +0000] "GET /api/v1/auth/me HTTP/1.1" 304 - "http://localhost:4000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-17 22:53:03 [INFO]: ::ffff:127.0.0.1 - - [17/Sep/2025:13:53:03 +0000] "GET /api/v1/auth/me HTTP/1.1" 304 - "http://localhost:4000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-17 22:53:03 [INFO]: ::ffff:127.0.0.1 - - [17/Sep/2025:13:53:03 +0000] "GET /api/v1/auth/me HTTP/1.1" 304 - "http://localhost:4000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-17 22:53:19 [INFO]: ::ffff:127.0.0.1 - - [17/Sep/2025:13:53:19 +0000] "GET /api/v1/auth/me HTTP/1.1" 304 - "http://localhost:4000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-17 22:53:19 [INFO]: ::ffff:127.0.0.1 - - [17/Sep/2025:13:53:19 +0000] "GET /api/v1/auth/me HTTP/1.1" 304 - "http://localhost:4000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-18 04:18:23 [INFO]: ::ffff:127.0.0.1 - - [17/Sep/2025:19:18:23 +0000] "GET /api/v1/auth/me HTTP/1.1" 304 - "http://localhost:4000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-18 04:18:23 [INFO]: ::ffff:127.0.0.1 - - [17/Sep/2025:19:18:23 +0000] "GET /api/v1/auth/me HTTP/1.1" 304 - "http://localhost:4000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-18 04:21:37 [INFO]: ::ffff:127.0.0.1 - - [17/Sep/2025:19:21:37 +0000] "GET /api/v1/auth/me HTTP/1.1" 304 - "http://localhost:4000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-18 04:21:37 [INFO]: ::ffff:127.0.0.1 - - [17/Sep/2025:19:21:37 +0000] "GET /api/v1/auth/me HTTP/1.1" 304 - "http://localhost:4000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-18 04:24:25 [INFO]: ::ffff:127.0.0.1 - - [17/Sep/2025:19:24:25 +0000] "GET /api/v1/auth/me HTTP/1.1" 304 - "http://localhost:4000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-18 04:24:25 [INFO]: ::ffff:127.0.0.1 - - [17/Sep/2025:19:24:25 +0000] "GET /api/v1/auth/me HTTP/1.1" 304 - "http://localhost:4000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-18 04:24:30 [INFO]: ::ffff:127.0.0.1 - - [17/Sep/2025:19:24:30 +0000] "GET /api/v1/auth/me HTTP/1.1" 304 - "http://localhost:4000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-18 04:24:30 [INFO]: ::ffff:127.0.0.1 - - [17/Sep/2025:19:24:30 +0000] "GET /api/v1/auth/me HTTP/1.1" 304 - "http://localhost:4000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-18 04:24:31 [INFO]: ::ffff:127.0.0.1 - - [17/Sep/2025:19:24:31 +0000] "GET /api/v1/organizations HTTP/1.1" 401 58 "http://localhost:4000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-18 04:25:14 [INFO]: ::ffff:127.0.0.1 - - [17/Sep/2025:19:25:14 +0000] "GET /api/v1/auth/me HTTP/1.1" 304 - "http://localhost:4000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-18 04:25:14 [INFO]: ::ffff:127.0.0.1 - - [17/Sep/2025:19:25:14 +0000] "GET /api/v1/auth/me HTTP/1.1" 304 - "http://localhost:4000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-18 04:25:14 [INFO]: ::ffff:127.0.0.1 - - [17/Sep/2025:19:25:14 +0000] "GET /api/v1/users HTTP/1.1" 401 58 "http://localhost:4000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-18 04:25:14 [INFO]: ::ffff:127.0.0.1 - - [17/Sep/2025:19:25:14 +0000] "GET /api/v1/organizations HTTP/1.1" 401 58 "http://localhost:4000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-18 04:28:08 [INFO]: ::ffff:127.0.0.1 - - [17/Sep/2025:19:28:08 +0000] "GET /api/v1/auth/me HTTP/1.1" 304 - "http://localhost:4000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-18 04:28:08 [INFO]: ::ffff:127.0.0.1 - - [17/Sep/2025:19:28:08 +0000] "GET /api/v1/auth/me HTTP/1.1" 304 - "http://localhost:4000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-18 04:28:08 [INFO]: ::ffff:127.0.0.1 - - [17/Sep/2025:19:28:08 +0000] "GET /api/v1/users HTTP/1.1" 401 58 "http://localhost:4000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-18 04:28:08 [INFO]: ::ffff:127.0.0.1 - - [17/Sep/2025:19:28:08 +0000] "GET /api/v1/organizations HTTP/1.1" 401 58 "http://localhost:4000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-18 04:33:35 [INFO]: ::ffff:127.0.0.1 - - [17/Sep/2025:19:33:35 +0000] "GET /api/v1/auth/me HTTP/1.1" 304 - "http://localhost:4000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-18 04:33:35 [INFO]: ::ffff:127.0.0.1 - - [17/Sep/2025:19:33:35 +0000] "GET /api/v1/auth/me HTTP/1.1" 304 - "http://localhost:4000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-18 04:33:35 [INFO]: ::ffff:127.0.0.1 - - [17/Sep/2025:19:33:35 +0000] "GET /api/v1/users HTTP/1.1" 401 58 "http://localhost:4000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-18 04:33:35 [INFO]: ::ffff:127.0.0.1 - - [17/Sep/2025:19:33:35 +0000] "GET /api/v1/organizations HTTP/1.1" 401 58 "http://localhost:4000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-18 04:35:19 [INFO]: ::ffff:127.0.0.1 - - [17/Sep/2025:19:35:19 +0000] "GET /api/v1/auth/me HTTP/1.1" 304 - "http://localhost:4000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-18 04:35:19 [INFO]: ::ffff:127.0.0.1 - - [17/Sep/2025:19:35:19 +0000] "GET /api/v1/organizations HTTP/1.1" 401 58 "http://localhost:4000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-18 04:35:19 [ERROR]: Error fetching sales calls: Cannot read properties of undefined (reading 'organizationId') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'organizationId')
+    at D:\Projects\otterai\otterai-backend\src\routes\salesCalls.js:32:37
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-18 04:35:19 [INFO]: ::ffff:127.0.0.1 - - [17/Sep/2025:19:35:19 +0000] "GET /api/v1/sales-calls HTTP/1.1" 500 101 "http://localhost:4000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-18 04:35:19 [INFO]: ::ffff:127.0.0.1 - - [17/Sep/2025:19:35:19 +0000] "GET /api/v1/users HTTP/1.1" 401 58 "http://localhost:4000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-18 04:35:19 [INFO]: ::ffff:127.0.0.1 - - [17/Sep/2025:19:35:19 +0000] "GET /api/v1/auth/me HTTP/1.1" 304 - "http://localhost:4000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-18 04:35:20 [INFO]: ::ffff:127.0.0.1 - - [17/Sep/2025:19:35:20 +0000] "GET /api/v1/organizations HTTP/1.1" 401 58 "http://localhost:4000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-18 04:35:20 [INFO]: ::ffff:127.0.0.1 - - [17/Sep/2025:19:35:20 +0000] "GET /api/v1/users HTTP/1.1" 401 58 "http://localhost:4000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-18 04:35:20 [ERROR]: Error fetching sales calls: Cannot read properties of undefined (reading 'organizationId') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'organizationId')
+    at D:\Projects\otterai\otterai-backend\src\routes\salesCalls.js:32:37
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-18 04:35:20 [INFO]: ::ffff:127.0.0.1 - - [17/Sep/2025:19:35:20 +0000] "GET /api/v1/sales-calls HTTP/1.1" 500 101 "http://localhost:4000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-18 04:36:48 [ERROR]: Error fetching notifications: Cannot read properties of undefined (reading 'id') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'id')
+    at D:\Projects\otterai\otterai-backend\src\routes\notifications.js:32:29
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-18 04:36:48 [INFO]: ::ffff:127.0.0.1 - - [17/Sep/2025:19:36:48 +0000] "GET /api/v1/notifications HTTP/1.1" 500 105 "http://localhost:4000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-18 04:36:48 [ERROR]: Error fetching unread count: Cannot read properties of undefined (reading 'id') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'id')
+    at D:\Projects\otterai\otterai-backend\src\routes\notifications.js:76:29
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-18 04:36:48 [INFO]: ::ffff:127.0.0.1 - - [17/Sep/2025:19:36:48 +0000] "GET /api/v1/notifications/unread HTTP/1.1" 500 103 "http://localhost:4000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-18 04:36:49 [ERROR]: Error fetching notifications: Cannot read properties of undefined (reading 'id') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'id')
+    at D:\Projects\otterai\otterai-backend\src\routes\notifications.js:32:29
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-18 04:36:49 [INFO]: ::ffff:127.0.0.1 - - [17/Sep/2025:19:36:49 +0000] "GET /api/v1/notifications HTTP/1.1" 500 105 "http://localhost:4000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-18 04:36:49 [ERROR]: Error fetching unread count: Cannot read properties of undefined (reading 'id') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'id')
+    at D:\Projects\otterai\otterai-backend\src\routes\notifications.js:76:29
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-18 04:36:49 [INFO]: ::ffff:127.0.0.1 - - [17/Sep/2025:19:36:49 +0000] "GET /api/v1/notifications/unread HTTP/1.1" 500 103 "http://localhost:4000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-18 04:37:49 [ERROR]: Error fetching notifications: Cannot read properties of undefined (reading 'id') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'id')
+    at D:\Projects\otterai\otterai-backend\src\routes\notifications.js:32:29
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-18 04:37:49 [INFO]: ::ffff:127.0.0.1 - - [17/Sep/2025:19:37:49 +0000] "GET /api/v1/notifications HTTP/1.1" 500 105 "http://localhost:4000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-18 04:37:49 [ERROR]: Error fetching unread count: Cannot read properties of undefined (reading 'id') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'id')
+    at D:\Projects\otterai\otterai-backend\src\routes\notifications.js:76:29
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-18 04:37:49 [INFO]: ::ffff:127.0.0.1 - - [17/Sep/2025:19:37:49 +0000] "GET /api/v1/notifications/unread HTTP/1.1" 500 103 "http://localhost:4000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-18 04:37:50 [ERROR]: Error fetching notifications: Cannot read properties of undefined (reading 'id') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'id')
+    at D:\Projects\otterai\otterai-backend\src\routes\notifications.js:32:29
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-18 04:37:50 [INFO]: ::ffff:127.0.0.1 - - [17/Sep/2025:19:37:50 +0000] "GET /api/v1/notifications HTTP/1.1" 500 105 "http://localhost:4000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-18 04:37:50 [ERROR]: Error fetching unread count: Cannot read properties of undefined (reading 'id') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'id')
+    at D:\Projects\otterai\otterai-backend\src\routes\notifications.js:76:29
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-18 04:37:50 [INFO]: ::ffff:127.0.0.1 - - [17/Sep/2025:19:37:50 +0000] "GET /api/v1/notifications/unread HTTP/1.1" 500 103 "http://localhost:4000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-18 04:37:53 [INFO]: ::ffff:127.0.0.1 - - [17/Sep/2025:19:37:53 +0000] "GET /api/v1/organizations HTTP/1.1" 401 58 "http://localhost:4000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-18 04:37:54 [INFO]: ::ffff:127.0.0.1 - - [17/Sep/2025:19:37:54 +0000] "GET /api/v1/organizations HTTP/1.1" 401 58 "http://localhost:4000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-18 04:50:04 [INFO]: SendGrid email service initialized {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-18 04:50:06 [INFO]: IDrive E2 file storage service initialized {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-18 04:50:07 [INFO]: 🚀 OtterAI Sales Analytics Backend Server running on port 3000 {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 17:48:56 [INFO]: SendGrid email service initialized {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 17:48:58 [INFO]: IDrive E2 file storage service initialized {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 17:49:00 [INFO]: 🚀 OtterAI Sales Analytics Backend Server running on port 3000 {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 17:49:17 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:08:49:17 +0000] "GET /health HTTP/1.1" 200 102 "-" "PostmanRuntime/7.46.0" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 18:38:12 [INFO]: SendGrid email service initialized {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 18:38:12 [INFO]: IDrive E2 file storage service initialized {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 18:38:13 [INFO]: 🚀 OtterAI Sales Analytics Backend Server running on port 3000 {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 18:38:29 [INFO]: SendGrid email service initialized {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 18:38:29 [INFO]: IDrive E2 file storage service initialized {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 18:38:29 [INFO]: 🚀 OtterAI Sales Analytics Backend Server running on port 3000 {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 18:39:04 [INFO]: SendGrid email service initialized {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 18:39:04 [INFO]: IDrive E2 file storage service initialized {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 18:39:04 [INFO]: 🚀 OtterAI Sales Analytics Backend Server running on port 3000 {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 18:41:42 [INFO]: SendGrid email service initialized {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 18:41:42 [INFO]: IDrive E2 file storage service initialized {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 18:41:42 [INFO]: 🚀 OtterAI Sales Analytics Backend Server running on port 3000 {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 18:41:48 [INFO]: SendGrid email service initialized {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 18:41:48 [INFO]: IDrive E2 file storage service initialized {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 18:41:49 [INFO]: 🚀 OtterAI Sales Analytics Backend Server running on port 3000 {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 19:02:16 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:10:02:16 +0000] "GET /api/v1/organizations HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 19:02:17 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:10:02:17 +0000] "GET /api/v1/organizations HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 19:02:39 [ERROR]: Error fetching sales calls: Cannot read properties of undefined (reading 'organizationId') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'organizationId')
+    at D:\Projects\otterai\otterai-backend\src\routes\salesCalls.js:32:37
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-23 19:02:39 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:10:02:39 +0000] "GET /api/v1/sales-calls HTTP/1.1" 500 101 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 19:02:39 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:10:02:39 +0000] "GET /api/v1/users HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 19:02:39 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:10:02:39 +0000] "GET /api/v1/organizations HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 19:02:40 [ERROR]: Error fetching sales calls: Cannot read properties of undefined (reading 'organizationId') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'organizationId')
+    at D:\Projects\otterai\otterai-backend\src\routes\salesCalls.js:32:37
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-23 19:02:40 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:10:02:40 +0000] "GET /api/v1/sales-calls HTTP/1.1" 500 101 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 19:02:40 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:10:02:40 +0000] "GET /api/v1/users HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 19:02:40 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:10:02:40 +0000] "GET /api/v1/organizations HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 19:02:58 [ERROR]: Error fetching sales calls: Cannot read properties of undefined (reading 'organizationId') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'organizationId')
+    at D:\Projects\otterai\otterai-backend\src\routes\salesCalls.js:32:37
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-23 19:02:58 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:10:02:58 +0000] "GET /api/v1/sales-calls HTTP/1.1" 500 101 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 19:02:58 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:10:02:58 +0000] "GET /api/v1/users HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 19:02:58 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:10:02:58 +0000] "GET /api/v1/organizations HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 19:02:59 [ERROR]: Error fetching sales calls: Cannot read properties of undefined (reading 'organizationId') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'organizationId')
+    at D:\Projects\otterai\otterai-backend\src\routes\salesCalls.js:32:37
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-23 19:02:59 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:10:02:59 +0000] "GET /api/v1/sales-calls HTTP/1.1" 500 101 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 19:02:59 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:10:02:59 +0000] "GET /api/v1/users HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 19:02:59 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:10:02:59 +0000] "GET /api/v1/organizations HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 19:27:05 [ERROR]: Error fetching sales calls: Cannot read properties of undefined (reading 'organizationId') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'organizationId')
+    at D:\Projects\otterai\otterai-backend\src\routes\salesCalls.js:32:37
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-23 19:27:05 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:10:27:05 +0000] "GET /api/v1/sales-calls HTTP/1.1" 500 101 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 19:27:05 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:10:27:05 +0000] "GET /api/v1/users HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 19:27:05 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:10:27:05 +0000] "GET /api/v1/organizations HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 19:27:06 [ERROR]: Error fetching sales calls: Cannot read properties of undefined (reading 'organizationId') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'organizationId')
+    at D:\Projects\otterai\otterai-backend\src\routes\salesCalls.js:32:37
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-23 19:27:06 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:10:27:06 +0000] "GET /api/v1/sales-calls HTTP/1.1" 500 101 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 19:27:06 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:10:27:06 +0000] "GET /api/v1/users HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 19:27:06 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:10:27:06 +0000] "GET /api/v1/organizations HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 19:44:27 [ERROR]: Error fetching sales calls: Cannot read properties of undefined (reading 'organizationId') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'organizationId')
+    at D:\Projects\otterai\otterai-backend\src\routes\salesCalls.js:32:37
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-23 19:44:27 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:10:44:27 +0000] "GET /api/v1/sales-calls HTTP/1.1" 500 101 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 19:44:27 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:10:44:27 +0000] "GET /api/v1/users HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 19:44:27 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:10:44:27 +0000] "GET /api/v1/organizations HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 19:44:28 [ERROR]: Error fetching sales calls: Cannot read properties of undefined (reading 'organizationId') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'organizationId')
+    at D:\Projects\otterai\otterai-backend\src\routes\salesCalls.js:32:37
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-23 19:44:28 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:10:44:28 +0000] "GET /api/v1/sales-calls HTTP/1.1" 500 101 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 19:44:28 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:10:44:28 +0000] "GET /api/v1/users HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 19:44:28 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:10:44:28 +0000] "GET /api/v1/organizations HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 19:44:35 [ERROR]: Error fetching sales calls: Cannot read properties of undefined (reading 'organizationId') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'organizationId')
+    at D:\Projects\otterai\otterai-backend\src\routes\salesCalls.js:32:37
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-23 19:44:35 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:10:44:35 +0000] "GET /api/v1/sales-calls HTTP/1.1" 500 101 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 19:44:35 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:10:44:35 +0000] "GET /api/v1/users HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 19:44:35 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:10:44:35 +0000] "GET /api/v1/organizations HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 19:44:36 [ERROR]: Error fetching sales calls: Cannot read properties of undefined (reading 'organizationId') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'organizationId')
+    at D:\Projects\otterai\otterai-backend\src\routes\salesCalls.js:32:37
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-23 19:44:36 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:10:44:36 +0000] "GET /api/v1/sales-calls HTTP/1.1" 500 101 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 19:44:36 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:10:44:36 +0000] "GET /api/v1/users HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 19:44:36 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:10:44:36 +0000] "GET /api/v1/organizations HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 19:49:40 [INFO]: SendGrid email service initialized {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 19:49:40 [INFO]: IDrive E2 file storage service initialized {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 19:49:40 [INFO]: 🚀 OtterAI Sales Analytics Backend Server running on port 3000 {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 21:26:25 [INFO]: SendGrid email service initialized {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 21:26:27 [INFO]: IDrive E2 file storage service initialized {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 21:26:29 [INFO]: 🚀 OtterAI Sales Analytics Backend Server running on port 3000 {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 21:27:48 [ERROR]: Error fetching sales calls: Cannot read properties of undefined (reading 'organizationId') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'organizationId')
+    at D:\Projects\otterai\otterai-backend\src\routes\salesCalls.js:32:37
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-23 21:27:48 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:12:27:48 +0000] "GET /api/v1/sales-calls HTTP/1.1" 500 101 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 21:27:48 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:12:27:48 +0000] "GET /api/v1/users HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 21:27:48 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:12:27:48 +0000] "GET /api/v1/organizations HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 21:27:49 [ERROR]: Error fetching sales calls: Cannot read properties of undefined (reading 'organizationId') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'organizationId')
+    at D:\Projects\otterai\otterai-backend\src\routes\salesCalls.js:32:37
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-23 21:27:49 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:12:27:49 +0000] "GET /api/v1/sales-calls HTTP/1.1" 500 101 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 21:27:49 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:12:27:49 +0000] "GET /api/v1/users HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 21:27:49 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:12:27:49 +0000] "GET /api/v1/organizations HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 21:28:10 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:12:28:10 +0000] "POST /api/v1/zapier/actions/otterai-analyze HTTP/1.1" 400 489 "-" "PostmanRuntime/7.47.1" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 21:28:17 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:12:28:17 +0000] "GET /health HTTP/1.1" 200 103 "-" "PostmanRuntime/7.47.1" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 21:31:42 [ERROR]: Error fetching sales calls: Cannot read properties of undefined (reading 'organizationId') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'organizationId')
+    at D:\Projects\otterai\otterai-backend\src\routes\salesCalls.js:32:37
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-23 21:31:42 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:12:31:42 +0000] "GET /api/v1/sales-calls HTTP/1.1" 500 101 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 21:31:42 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:12:31:42 +0000] "GET /api/v1/users HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 21:31:42 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:12:31:42 +0000] "GET /api/v1/organizations HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 21:31:43 [ERROR]: Error fetching sales calls: Cannot read properties of undefined (reading 'organizationId') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'organizationId')
+    at D:\Projects\otterai\otterai-backend\src\routes\salesCalls.js:32:37
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-23 21:31:43 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:12:31:43 +0000] "GET /api/v1/sales-calls HTTP/1.1" 500 101 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 21:31:43 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:12:31:43 +0000] "GET /api/v1/users HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 21:31:43 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:12:31:43 +0000] "GET /api/v1/organizations HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 21:33:33 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:12:33:33 +0000] "GET /api/v1/organizations HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 21:40:10 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:12:40:10 +0000] "GET /api/v1/organizations HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 21:40:11 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:12:40:11 +0000] "GET /api/v1/organizations HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 21:48:59 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:12:48:59 +0000] "GET /api/v1/organizations HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 21:49:00 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:12:49:00 +0000] "GET /api/v1/organizations HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 22:38:21 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:13:38:21 +0000] "GET /api/v1/organizations HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 22:38:22 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:13:38:22 +0000] "GET /api/v1/organizations HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 22:49:30 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:13:49:30 +0000] "GET /api/v1/users HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 22:49:30 [ERROR]: Error fetching sales calls: Cannot read properties of undefined (reading 'organizationId') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'organizationId')
+    at D:\Projects\otterai\otterai-backend\src\routes\salesCalls.js:32:37
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-23 22:49:30 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:13:49:30 +0000] "GET /api/v1/sales-calls HTTP/1.1" 500 101 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 22:49:30 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:13:49:30 +0000] "GET /api/v1/organizations HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 22:49:32 [ERROR]: Error fetching sales calls: Cannot read properties of undefined (reading 'organizationId') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'organizationId')
+    at D:\Projects\otterai\otterai-backend\src\routes\salesCalls.js:32:37
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-23 22:49:32 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:13:49:32 +0000] "GET /api/v1/sales-calls HTTP/1.1" 500 101 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 22:49:32 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:13:49:32 +0000] "GET /api/v1/users HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 22:49:32 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:13:49:32 +0000] "GET /api/v1/organizations HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 22:49:39 [ERROR]: Error fetching sales calls: Cannot read properties of undefined (reading 'organizationId') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'organizationId')
+    at D:\Projects\otterai\otterai-backend\src\routes\salesCalls.js:32:37
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-23 22:49:39 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:13:49:39 +0000] "GET /api/v1/sales-calls HTTP/1.1" 500 101 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 22:49:39 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:13:49:39 +0000] "GET /api/v1/users HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 22:49:39 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:13:49:39 +0000] "GET /api/v1/organizations HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 22:49:41 [ERROR]: Error fetching sales calls: Cannot read properties of undefined (reading 'organizationId') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'organizationId')
+    at D:\Projects\otterai\otterai-backend\src\routes\salesCalls.js:32:37
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-23 22:49:41 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:13:49:41 +0000] "GET /api/v1/sales-calls HTTP/1.1" 500 101 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 22:49:41 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:13:49:41 +0000] "GET /api/v1/users HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 22:49:41 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:13:49:41 +0000] "GET /api/v1/organizations HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 22:49:49 [ERROR]: Error fetching sales calls: Cannot read properties of undefined (reading 'organizationId') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'organizationId')
+    at D:\Projects\otterai\otterai-backend\src\routes\salesCalls.js:32:37
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-23 22:49:49 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:13:49:49 +0000] "GET /api/v1/sales-calls HTTP/1.1" 500 101 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 22:49:49 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:13:49:49 +0000] "GET /api/v1/users HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 22:49:49 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:13:49:49 +0000] "GET /api/v1/organizations HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 22:49:50 [ERROR]: Error fetching sales calls: Cannot read properties of undefined (reading 'organizationId') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'organizationId')
+    at D:\Projects\otterai\otterai-backend\src\routes\salesCalls.js:32:37
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-23 22:49:50 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:13:49:50 +0000] "GET /api/v1/sales-calls HTTP/1.1" 500 101 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 22:49:50 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:13:49:50 +0000] "GET /api/v1/users HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 22:49:50 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:13:49:50 +0000] "GET /api/v1/organizations HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 22:52:42 [ERROR]: Error fetching sales calls: Cannot read properties of undefined (reading 'organizationId') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'organizationId')
+    at D:\Projects\otterai\otterai-backend\src\routes\salesCalls.js:32:37
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-23 22:52:42 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:13:52:42 +0000] "GET /api/v1/sales-calls HTTP/1.1" 500 101 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 22:52:42 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:13:52:42 +0000] "GET /api/v1/users HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 22:52:42 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:13:52:42 +0000] "GET /api/v1/organizations HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 22:52:43 [ERROR]: Error fetching sales calls: Cannot read properties of undefined (reading 'organizationId') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'organizationId')
+    at D:\Projects\otterai\otterai-backend\src\routes\salesCalls.js:32:37
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-23 22:52:43 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:13:52:43 +0000] "GET /api/v1/sales-calls HTTP/1.1" 500 101 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 22:52:43 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:13:52:43 +0000] "GET /api/v1/users HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 22:52:43 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:13:52:43 +0000] "GET /api/v1/organizations HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 22:52:58 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:13:52:58 +0000] "GET /api/v1/organizations HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}
+2025-09-23 22:52:59 [INFO]: ::ffff:127.0.0.1 - - [23/Sep/2025:13:52:59 +0000] "GET /api/v1/organizations HTTP/1.1" 401 58 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"service":"otterai-sales-analytics","environment":"development"}

@@ -1,0 +1,412 @@
+2025-09-17 22:38:27 [ERROR]: Unable to connect to the PostgreSQL database: SASL: SCRAM-SERVER-FIRST-MESSAGE: client password must be a string {"service":"otterai-sales-analytics","environment":"development","name":"SequelizeConnectionError","parent":{},"original":{}}
+SequelizeConnectionError: SASL: SCRAM-SERVER-FIRST-MESSAGE: client password must be a string
+    at Client._connectionCallback (D:\Projects\otterai\otterai-backend\node_modules\sequelize\lib\dialects\postgres\connection-manager.js:149:20)
+    at Client._handleErrorWhileConnecting (D:\Projects\otterai\otterai-backend\node_modules\pg\lib\client.js:336:19)
+    at Client._handleErrorEvent (D:\Projects\otterai\otterai-backend\node_modules\pg\lib\client.js:346:19)
+    at Connection.emit (node:events:507:28)
+    at Client._handleAuthSASLContinue (D:\Projects\otterai\otterai-backend\node_modules\pg\lib\client.js:284:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+2025-09-17 22:38:42 [ERROR]: Unable to connect to the PostgreSQL database: SASL: SCRAM-SERVER-FIRST-MESSAGE: client password must be a string {"service":"otterai-sales-analytics","environment":"development","name":"SequelizeConnectionError","parent":{},"original":{}}
+SequelizeConnectionError: SASL: SCRAM-SERVER-FIRST-MESSAGE: client password must be a string
+    at Client._connectionCallback (D:\Projects\otterai\otterai-backend\node_modules\sequelize\lib\dialects\postgres\connection-manager.js:149:20)
+    at Client._handleErrorWhileConnecting (D:\Projects\otterai\otterai-backend\node_modules\pg\lib\client.js:336:19)
+    at Client._handleErrorEvent (D:\Projects\otterai\otterai-backend\node_modules\pg\lib\client.js:346:19)
+    at Connection.emit (node:events:507:28)
+    at Client._handleAuthSASLContinue (D:\Projects\otterai\otterai-backend\node_modules\pg\lib\client.js:284:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+2025-09-17 22:40:13 [ERROR]: Unable to connect to the PostgreSQL database: no pg_hba.conf entry for host "127.0.0.1", user "postgres", database "otterai_sales_analytics", no encryption {"service":"otterai-sales-analytics","environment":"development","name":"SequelizeConnectionError","parent":{"length":172,"name":"error","severity":"FATAL","code":"28000","file":"auth.c","line":"540","routine":"ClientAuthentication"},"original":{"length":172,"name":"error","severity":"FATAL","code":"28000","file":"auth.c","line":"540","routine":"ClientAuthentication"}}
+SequelizeConnectionError: no pg_hba.conf entry for host "127.0.0.1", user "postgres", database "otterai_sales_analytics", no encryption
+    at Client._connectionCallback (D:\Projects\otterai\otterai-backend\node_modules\sequelize\lib\dialects\postgres\connection-manager.js:145:24)
+    at Client._handleErrorWhileConnecting (D:\Projects\otterai\otterai-backend\node_modules\pg\lib\client.js:336:19)
+    at Client._handleErrorMessage (D:\Projects\otterai\otterai-backend\node_modules\pg\lib\client.js:356:19)
+    at Connection.emit (node:events:507:28)
+    at D:\Projects\otterai\otterai-backend\node_modules\pg\lib\connection.js:116:12
+    at Parser.parse (D:\Projects\otterai\otterai-backend\node_modules\pg-protocol\dist\parser.js:36:17)
+    at Socket.<anonymous> (D:\Projects\otterai\otterai-backend\node_modules\pg-protocol\dist\index.js:11:42)
+    at Socket.emit (node:events:507:28)
+    at addChunk (node:internal/streams/readable:559:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+2025-09-18 04:35:19 [ERROR]: Error fetching sales calls: Cannot read properties of undefined (reading 'organizationId') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'organizationId')
+    at D:\Projects\otterai\otterai-backend\src\routes\salesCalls.js:32:37
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-18 04:35:20 [ERROR]: Error fetching sales calls: Cannot read properties of undefined (reading 'organizationId') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'organizationId')
+    at D:\Projects\otterai\otterai-backend\src\routes\salesCalls.js:32:37
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-18 04:36:48 [ERROR]: Error fetching notifications: Cannot read properties of undefined (reading 'id') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'id')
+    at D:\Projects\otterai\otterai-backend\src\routes\notifications.js:32:29
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-18 04:36:48 [ERROR]: Error fetching unread count: Cannot read properties of undefined (reading 'id') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'id')
+    at D:\Projects\otterai\otterai-backend\src\routes\notifications.js:76:29
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-18 04:36:49 [ERROR]: Error fetching notifications: Cannot read properties of undefined (reading 'id') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'id')
+    at D:\Projects\otterai\otterai-backend\src\routes\notifications.js:32:29
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-18 04:36:49 [ERROR]: Error fetching unread count: Cannot read properties of undefined (reading 'id') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'id')
+    at D:\Projects\otterai\otterai-backend\src\routes\notifications.js:76:29
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-18 04:37:49 [ERROR]: Error fetching notifications: Cannot read properties of undefined (reading 'id') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'id')
+    at D:\Projects\otterai\otterai-backend\src\routes\notifications.js:32:29
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-18 04:37:49 [ERROR]: Error fetching unread count: Cannot read properties of undefined (reading 'id') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'id')
+    at D:\Projects\otterai\otterai-backend\src\routes\notifications.js:76:29
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-18 04:37:50 [ERROR]: Error fetching notifications: Cannot read properties of undefined (reading 'id') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'id')
+    at D:\Projects\otterai\otterai-backend\src\routes\notifications.js:32:29
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-18 04:37:50 [ERROR]: Error fetching unread count: Cannot read properties of undefined (reading 'id') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'id')
+    at D:\Projects\otterai\otterai-backend\src\routes\notifications.js:76:29
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-23 19:02:39 [ERROR]: Error fetching sales calls: Cannot read properties of undefined (reading 'organizationId') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'organizationId')
+    at D:\Projects\otterai\otterai-backend\src\routes\salesCalls.js:32:37
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-23 19:02:40 [ERROR]: Error fetching sales calls: Cannot read properties of undefined (reading 'organizationId') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'organizationId')
+    at D:\Projects\otterai\otterai-backend\src\routes\salesCalls.js:32:37
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-23 19:02:58 [ERROR]: Error fetching sales calls: Cannot read properties of undefined (reading 'organizationId') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'organizationId')
+    at D:\Projects\otterai\otterai-backend\src\routes\salesCalls.js:32:37
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-23 19:02:59 [ERROR]: Error fetching sales calls: Cannot read properties of undefined (reading 'organizationId') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'organizationId')
+    at D:\Projects\otterai\otterai-backend\src\routes\salesCalls.js:32:37
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-23 19:27:05 [ERROR]: Error fetching sales calls: Cannot read properties of undefined (reading 'organizationId') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'organizationId')
+    at D:\Projects\otterai\otterai-backend\src\routes\salesCalls.js:32:37
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-23 19:27:06 [ERROR]: Error fetching sales calls: Cannot read properties of undefined (reading 'organizationId') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'organizationId')
+    at D:\Projects\otterai\otterai-backend\src\routes\salesCalls.js:32:37
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-23 19:44:27 [ERROR]: Error fetching sales calls: Cannot read properties of undefined (reading 'organizationId') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'organizationId')
+    at D:\Projects\otterai\otterai-backend\src\routes\salesCalls.js:32:37
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-23 19:44:28 [ERROR]: Error fetching sales calls: Cannot read properties of undefined (reading 'organizationId') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'organizationId')
+    at D:\Projects\otterai\otterai-backend\src\routes\salesCalls.js:32:37
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-23 19:44:35 [ERROR]: Error fetching sales calls: Cannot read properties of undefined (reading 'organizationId') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'organizationId')
+    at D:\Projects\otterai\otterai-backend\src\routes\salesCalls.js:32:37
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-23 19:44:36 [ERROR]: Error fetching sales calls: Cannot read properties of undefined (reading 'organizationId') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'organizationId')
+    at D:\Projects\otterai\otterai-backend\src\routes\salesCalls.js:32:37
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-23 21:27:48 [ERROR]: Error fetching sales calls: Cannot read properties of undefined (reading 'organizationId') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'organizationId')
+    at D:\Projects\otterai\otterai-backend\src\routes\salesCalls.js:32:37
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-23 21:27:49 [ERROR]: Error fetching sales calls: Cannot read properties of undefined (reading 'organizationId') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'organizationId')
+    at D:\Projects\otterai\otterai-backend\src\routes\salesCalls.js:32:37
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-23 21:31:42 [ERROR]: Error fetching sales calls: Cannot read properties of undefined (reading 'organizationId') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'organizationId')
+    at D:\Projects\otterai\otterai-backend\src\routes\salesCalls.js:32:37
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-23 21:31:43 [ERROR]: Error fetching sales calls: Cannot read properties of undefined (reading 'organizationId') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'organizationId')
+    at D:\Projects\otterai\otterai-backend\src\routes\salesCalls.js:32:37
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-23 22:49:30 [ERROR]: Error fetching sales calls: Cannot read properties of undefined (reading 'organizationId') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'organizationId')
+    at D:\Projects\otterai\otterai-backend\src\routes\salesCalls.js:32:37
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-23 22:49:32 [ERROR]: Error fetching sales calls: Cannot read properties of undefined (reading 'organizationId') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'organizationId')
+    at D:\Projects\otterai\otterai-backend\src\routes\salesCalls.js:32:37
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-23 22:49:39 [ERROR]: Error fetching sales calls: Cannot read properties of undefined (reading 'organizationId') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'organizationId')
+    at D:\Projects\otterai\otterai-backend\src\routes\salesCalls.js:32:37
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-23 22:49:41 [ERROR]: Error fetching sales calls: Cannot read properties of undefined (reading 'organizationId') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'organizationId')
+    at D:\Projects\otterai\otterai-backend\src\routes\salesCalls.js:32:37
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-23 22:49:49 [ERROR]: Error fetching sales calls: Cannot read properties of undefined (reading 'organizationId') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'organizationId')
+    at D:\Projects\otterai\otterai-backend\src\routes\salesCalls.js:32:37
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-23 22:49:50 [ERROR]: Error fetching sales calls: Cannot read properties of undefined (reading 'organizationId') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'organizationId')
+    at D:\Projects\otterai\otterai-backend\src\routes\salesCalls.js:32:37
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-23 22:52:42 [ERROR]: Error fetching sales calls: Cannot read properties of undefined (reading 'organizationId') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'organizationId')
+    at D:\Projects\otterai\otterai-backend\src\routes\salesCalls.js:32:37
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)
+2025-09-23 22:52:43 [ERROR]: Error fetching sales calls: Cannot read properties of undefined (reading 'organizationId') {"service":"otterai-sales-analytics","environment":"development"}
+TypeError: Cannot read properties of undefined (reading 'organizationId')
+    at D:\Projects\otterai\otterai-backend\src\routes\salesCalls.js:32:37
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\layer.js:95:5)
+    at D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:284:15
+    at router.process_params (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:346:12)
+    at next (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:280:10)
+    at router.handle (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:175:3)
+    at router (D:\Projects\otterai\otterai-backend\node_modules\express\lib\router\index.js:47:12)

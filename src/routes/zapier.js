@@ -7,6 +7,26 @@ const { Op } = require('sequelize');
 
 const router = express.Router();
 
+// =============================================
+// Cloud Storage Upload (commented out for now)
+// When ready, uncomment the lines below and ensure axios is installed
+// const axios = require('axios');
+// const fileStorageService = require('../services/fileStorageService');
+//
+// async function downloadFileAsBuffer(url) {
+//   const response = await axios.get(url, { responseType: 'arraybuffer' });
+//   const contentType = response.headers['content-type'] || 'application/octet-stream';
+//   return { buffer: Buffer.from(response.data), contentType };
+// }
+//
+// function buildObjectKey(prefix, extension = 'dat', salesCallId) {
+//   const safePrefix = prefix || 'uploads';
+//   const base = salesCallId ? `${salesCallId}` : 'general';
+//   const timestamp = Date.now();
+//   return `${safePrefix}/${base}-${timestamp}.${extension}`;
+// }
+// =============================================
+
 // Get models from sequelize instance
 const getModels = () => {
   try {
@@ -595,13 +615,14 @@ router.get('/search/organizations', [
  * @access  Public (OtterAI webhook)
  */
 router.post('/actions/otterai-analyze', [
-  body('transcript_data').optional().isString().withMessage('Transcript data must be a string'),
+  body('transcript_data').optional().isURL().withMessage('Transcript URL must be a valid URL'),
   body('analyzed_data').optional().isObject().withMessage('Analyzed data must be an object'),
-  body('captured_data').optional().isObject().withMessage('Captured data must be an object'),
+  body('captured_data').optional().isURL().withMessage('Captured data URL must be a valid URL'),
   body('salesCallId').optional().isUUID().withMessage('Valid sales call ID is required if provided'),
   body('organizationId').optional().isUUID().withMessage('Valid organization ID is required if provided'),
   body('userId').optional().isUUID().withMessage('Valid user ID is required if provided')
 ], async (req, res) => {
+  console.log('Received OtterAI analysis data:', req.body);
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -624,6 +645,32 @@ router.post('/actions/otterai-analyze', [
       userId 
     } = req.body;
 
+    // =============================================================
+    // Optional: Persist remote transcript/captured files to cloud storage
+    // Uncomment to enable saving the remote files we received as URLs
+    // let uploadedTranscriptUrl = null;
+    // let uploadedCapturedDataUrl = null;
+    // try {
+    //   if (transcript_data) {
+    //     const { buffer, contentType } = await downloadFileAsBuffer(transcript_data);
+    //     // Attempt to infer extension from content type
+    //     const ext = contentType.includes('json') ? 'json' : contentType.includes('plain') ? 'txt' : 'dat';
+    //     const objectKey = buildObjectKey('otterai/transcripts', ext, salesCallId);
+    //     const result = await fileStorageService.uploadFile(buffer, objectKey, contentType, 'analytics');
+    //     uploadedTranscriptUrl = `${fileStorageService.baseUrl}/${fileStorageService.bucket}/${result.fileKey}`;
+    //   }
+    //   if (captured_data) {
+    //     const { buffer, contentType } = await downloadFileAsBuffer(captured_data);
+    //     const ext = contentType.includes('json') ? 'json' : 'dat';
+    //     const objectKey = buildObjectKey('otterai/captured', ext, salesCallId);
+    //     const result = await fileStorageService.uploadFile(buffer, objectKey, contentType, 'analytics');
+    //     uploadedCapturedDataUrl = `${fileStorageService.baseUrl}/${fileStorageService.bucket}/${result.fileKey}`;
+    //   }
+    // } catch (cloudError) {
+    //   logger.error('Cloud storage upload failed:', cloudError);
+    // }
+    // =============================================================
+
     // Log the OtterAI data received
     logger.logZapierEvent('otterai_analyze', {
       salesCallId,
@@ -641,10 +688,18 @@ router.post('/actions/otterai-analyze', [
         
         const salesCall = await SalesCall.findByPk(salesCallId);
         if (salesCall) {
-          // Update the sales call with analyzed data
+          // Prepare analysis data, embedding captured data URL if provided
+          const analysisData = analyzed_data ? { ...analyzed_data } : {};
+          if (captured_data) {
+            // To use uploaded URL instead, switch to uploadedCapturedDataUrl when uncommented
+            analysisData.captured_data_url = captured_data; // or uploadedCapturedDataUrl
+          }
+
+          // Update the sales call with analyzed data and URLs
           await salesCall.update({
-            analysis_data: analyzed_data || {},
-            transcript_url: transcript_data ? `data:text/plain;base64,${Buffer.from(transcript_data).toString('base64')}` : null,
+            analysis_data: analysisData,
+            // To use uploaded URL instead, switch to uploadedTranscriptUrl when uncommented
+            transcript_url: transcript_data || null, // or uploadedTranscriptUrl
             performance_score: analyzed_data?.performance_score || null,
             strengths: analyzed_data?.strengths || [],
             weaknesses: analyzed_data?.weaknesses || [],
@@ -674,9 +729,10 @@ router.post('/actions/otterai-analyze', [
           report_type: 'otterai_analysis',
           report_name: `OtterAI Analysis - ${salesCallId || 'General'}`,
           report_data: {
-            transcript_data,
+            // To use uploaded URLs instead, switch to uploadedTranscriptUrl/uploadedCapturedDataUrl when uncommented
+            transcript_url: transcript_data || null, // or uploadedTranscriptUrl
             analyzed_data,
-            captured_data,
+            captured_data_url: captured_data || null, // or uploadedCapturedDataUrl
             sales_call_id: salesCallId
           },
           filters: {},

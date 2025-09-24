@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS organizations (
     subscription_plan VARCHAR(50) DEFAULT 'basic',
     subscription_status VARCHAR(20) DEFAULT 'active',
     subscription_expires_at TIMESTAMP,
-    settings JSONB DEFAULT '{}',
+    settings JSONB DEFAULT '{}'::jsonb,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS users (
     organization_id UUID NOT NULL,
     manager_id UUID,
     last_login_at TIMESTAMP,
-    preferences JSONB DEFAULT '{}',
+    preferences JSONB DEFAULT '{}'::jsonb,
     profile_image_url VARCHAR(500),
     is_online BOOLEAN DEFAULT false,
     device_token VARCHAR(255),
@@ -76,17 +76,17 @@ CREATE TABLE IF NOT EXISTS sales_calls (
     otter_ai_recording_id VARCHAR(255),
     recording_url VARCHAR(500),
     transcript_url VARCHAR(500),
-    analysis_data JSONB DEFAULT '{}',
+    analysis_data JSONB DEFAULT '{}'::jsonb,
     performance_score DECIMAL(3, 2), -- 0.00 to 1.00
-    strengths JSONB DEFAULT '[]',
-    weaknesses JSONB DEFAULT '[]',
-    recommendations JSONB DEFAULT '[]',
+    strengths JSONB DEFAULT '[]'::jsonb,
+    weaknesses JSONB DEFAULT '[]'::jsonb,
+    recommendations JSONB DEFAULT '[]'::jsonb,
     script_compliance DECIMAL(3, 2), -- 0.00 to 1.00
-    key_topics_covered JSONB DEFAULT '[]',
-    objections_handled JSONB DEFAULT '[]',
+    key_topics_covered JSONB DEFAULT '[]'::jsonb,
+    objections_handled JSONB DEFAULT '[]'::jsonb,
     customer_sentiment VARCHAR(20),
     notes TEXT,
-    tags JSONB DEFAULT '[]',
+    tags JSONB DEFAULT '[]'::jsonb,
     is_live_monitored BOOLEAN DEFAULT false,
     live_session_id UUID,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -136,7 +136,7 @@ CREATE TABLE IF NOT EXISTS notifications (
     type VARCHAR(100) NOT NULL,
     title VARCHAR(255) NOT NULL,
     message TEXT NOT NULL,
-    data JSONB DEFAULT '{}',
+    data JSONB DEFAULT '{}'::jsonb,
     is_read BOOLEAN DEFAULT false,
     is_sent BOOLEAN DEFAULT false,
     sent_at TIMESTAMP,
@@ -158,7 +158,7 @@ CREATE TABLE IF NOT EXISTS live_sessions (
     started_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     ended_at TIMESTAMP,
     duration INTEGER, -- in seconds
-    participants JSONB DEFAULT '[]',
+    participants JSONB DEFAULT '[]'::jsonb,
     notes TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -177,7 +177,7 @@ CREATE TABLE IF NOT EXISTS files (
     category VARCHAR(100) NOT NULL,
     description TEXT,
     related_id UUID, -- ID of related entity (sales call, analytics report, etc.)
-    metadata JSONB DEFAULT '{}',
+    metadata JSONB DEFAULT '{}'::jsonb,
     is_deleted BOOLEAN DEFAULT false,
     deleted_at TIMESTAMP,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -233,53 +233,165 @@ CREATE INDEX IF NOT EXISTS idx_files_file_key ON files(file_key);
 CREATE INDEX IF NOT EXISTS idx_files_is_deleted ON files(is_deleted);
 
 -- Add foreign key constraints
-ALTER TABLE users ADD CONSTRAINT IF NOT EXISTS fk_users_organization 
-    FOREIGN KEY (organization_id) REFERENCES organizations(id) ON DELETE CASCADE;
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_constraint WHERE conname = 'fk_users_organization'
+    ) THEN
+        ALTER TABLE users ADD CONSTRAINT fk_users_organization 
+            FOREIGN KEY (organization_id) REFERENCES organizations(id) ON DELETE CASCADE;
+    END IF;
+END $$;
 
-ALTER TABLE users ADD CONSTRAINT IF NOT EXISTS fk_users_manager 
-    FOREIGN KEY (manager_id) REFERENCES users(id) ON DELETE SET NULL;
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_constraint WHERE conname = 'fk_users_manager'
+    ) THEN
+        ALTER TABLE users ADD CONSTRAINT fk_users_manager 
+            FOREIGN KEY (manager_id) REFERENCES users(id) ON DELETE SET NULL;
+    END IF;
+END $$;
 
-ALTER TABLE sales_calls ADD CONSTRAINT IF NOT EXISTS fk_sales_calls_organization 
-    FOREIGN KEY (organization_id) REFERENCES organizations(id) ON DELETE CASCADE;
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_constraint WHERE conname = 'fk_sales_calls_organization'
+    ) THEN
+        ALTER TABLE sales_calls ADD CONSTRAINT fk_sales_calls_organization 
+            FOREIGN KEY (organization_id) REFERENCES organizations(id) ON DELETE CASCADE;
+    END IF;
+END $$;
 
-ALTER TABLE sales_calls ADD CONSTRAINT IF NOT EXISTS fk_sales_calls_sales_representative 
-    FOREIGN KEY (sales_representative_id) REFERENCES users(id) ON DELETE CASCADE;
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_constraint WHERE conname = 'fk_sales_calls_sales_representative'
+    ) THEN
+        ALTER TABLE sales_calls ADD CONSTRAINT fk_sales_calls_sales_representative 
+            FOREIGN KEY (sales_representative_id) REFERENCES users(id) ON DELETE CASCADE;
+    END IF;
+END $$;
 
-ALTER TABLE sales_calls ADD CONSTRAINT IF NOT EXISTS fk_sales_calls_manager 
-    FOREIGN KEY (manager_id) REFERENCES users(id) ON DELETE SET NULL;
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_constraint WHERE conname = 'fk_sales_calls_manager'
+    ) THEN
+        ALTER TABLE sales_calls ADD CONSTRAINT fk_sales_calls_manager 
+            FOREIGN KEY (manager_id) REFERENCES users(id) ON DELETE SET NULL;
+    END IF;
+END $$;
 
-ALTER TABLE sales_scripts ADD CONSTRAINT IF NOT EXISTS fk_sales_scripts_organization 
-    FOREIGN KEY (organization_id) REFERENCES organizations(id) ON DELETE CASCADE;
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_constraint WHERE conname = 'fk_sales_scripts_organization'
+    ) THEN
+        ALTER TABLE sales_scripts ADD CONSTRAINT fk_sales_scripts_organization 
+            FOREIGN KEY (organization_id) REFERENCES organizations(id) ON DELETE CASCADE;
+    END IF;
+END $$;
 
-ALTER TABLE sales_scripts ADD CONSTRAINT IF NOT EXISTS fk_sales_scripts_created_by 
-    FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE SET NULL;
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_constraint WHERE conname = 'fk_sales_scripts_created_by'
+    ) THEN
+        ALTER TABLE sales_scripts ADD CONSTRAINT fk_sales_scripts_created_by 
+            FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE SET NULL;
+    END IF;
+END $$;
 
-ALTER TABLE analytics ADD CONSTRAINT IF NOT EXISTS fk_analytics_organization 
-    FOREIGN KEY (organization_id) REFERENCES organizations(id) ON DELETE CASCADE;
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_constraint WHERE conname = 'fk_analytics_organization'
+    ) THEN
+        ALTER TABLE analytics ADD CONSTRAINT fk_analytics_organization 
+            FOREIGN KEY (organization_id) REFERENCES organizations(id) ON DELETE CASCADE;
+    END IF;
+END $$;
 
-ALTER TABLE analytics ADD CONSTRAINT IF NOT EXISTS fk_analytics_user 
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL;
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_constraint WHERE conname = 'fk_analytics_user'
+    ) THEN
+        ALTER TABLE analytics ADD CONSTRAINT fk_analytics_user 
+            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL;
+    END IF;
+END $$;
 
-ALTER TABLE notifications ADD CONSTRAINT IF NOT EXISTS fk_notifications_organization 
-    FOREIGN KEY (organization_id) REFERENCES organizations(id) ON DELETE CASCADE;
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_constraint WHERE conname = 'fk_notifications_organization'
+    ) THEN
+        ALTER TABLE notifications ADD CONSTRAINT fk_notifications_organization 
+            FOREIGN KEY (organization_id) REFERENCES organizations(id) ON DELETE CASCADE;
+    END IF;
+END $$;
 
-ALTER TABLE notifications ADD CONSTRAINT IF NOT EXISTS fk_notifications_user 
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_constraint WHERE conname = 'fk_notifications_user'
+    ) THEN
+        ALTER TABLE notifications ADD CONSTRAINT fk_notifications_user 
+            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
+    END IF;
+END $$;
 
-ALTER TABLE live_sessions ADD CONSTRAINT IF NOT EXISTS fk_live_sessions_organization 
-    FOREIGN KEY (organization_id) REFERENCES organizations(id) ON DELETE CASCADE;
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_constraint WHERE conname = 'fk_live_sessions_organization'
+    ) THEN
+        ALTER TABLE live_sessions ADD CONSTRAINT fk_live_sessions_organization 
+            FOREIGN KEY (organization_id) REFERENCES organizations(id) ON DELETE CASCADE;
+    END IF;
+END $$;
 
-ALTER TABLE live_sessions ADD CONSTRAINT IF NOT EXISTS fk_live_sessions_sales_call 
-    FOREIGN KEY (sales_call_id) REFERENCES sales_calls(id) ON DELETE SET NULL;
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_constraint WHERE conname = 'fk_live_sessions_sales_call'
+    ) THEN
+        ALTER TABLE live_sessions ADD CONSTRAINT fk_live_sessions_sales_call 
+            FOREIGN KEY (sales_call_id) REFERENCES sales_calls(id) ON DELETE SET NULL;
+    END IF;
+END $$;
 
-ALTER TABLE live_sessions ADD CONSTRAINT IF NOT EXISTS fk_live_sessions_user 
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_constraint WHERE conname = 'fk_live_sessions_user'
+    ) THEN
+        ALTER TABLE live_sessions ADD CONSTRAINT fk_live_sessions_user 
+            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
+    END IF;
+END $$;
 
-ALTER TABLE files ADD CONSTRAINT IF NOT EXISTS fk_files_organization 
-    FOREIGN KEY (organization_id) REFERENCES organizations(id) ON DELETE CASCADE;
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_constraint WHERE conname = 'fk_files_organization'
+    ) THEN
+        ALTER TABLE files ADD CONSTRAINT fk_files_organization 
+            FOREIGN KEY (organization_id) REFERENCES organizations(id) ON DELETE CASCADE;
+    END IF;
+END $$;
 
-ALTER TABLE files ADD CONSTRAINT IF NOT EXISTS fk_files_user 
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_constraint WHERE conname = 'fk_files_user'
+    ) THEN
+        ALTER TABLE files ADD CONSTRAINT fk_files_user 
+            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
+    END IF;
+END $$;
 
 -- Create updated_at trigger function
 CREATE OR REPLACE FUNCTION update_updated_at_column()

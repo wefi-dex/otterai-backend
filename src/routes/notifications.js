@@ -1,7 +1,7 @@
 const express = require('express');
 const { body, validationResult } = require('express-validator');
 const { getSequelize } = require('../database/connection');
-const { requireRole } = require('../middleware/auth');
+const { authenticateToken, requireRole } = require('../middleware/auth');
 const { logger } = require('../utils/logger');
 const emailService = require('../services/emailService');
 
@@ -26,20 +26,22 @@ const getModels = () => {
  * @desc    Get user notifications
  * @access  Private (All authenticated users)
  */
-router.get('/', async (req, res) => {
+router.get('/', authenticateToken, async (req, res) => {
   try {
+    const { Notification } = getModels();
     const { page = 1, limit = 20, status, type } = req.query;
     const userId = req.user.id;
 
-    const whereClause = { userId };
-    if (status) whereClause.status = status;
+    const whereClause = { user_id: userId };
+    if (status === 'unread') whereClause.is_read = false;
+    if (status === 'read') whereClause.is_read = true;
     if (type) whereClause.type = type;
 
     const notifications = await Notification.findAndCountAll({
       where: whereClause,
       limit: parseInt(limit),
       offset: (parseInt(page) - 1) * parseInt(limit),
-      order: [['createdAt', 'DESC']]
+      order: [['created_at', 'DESC']]
     });
 
     res.status(200).json({
@@ -71,14 +73,15 @@ router.get('/', async (req, res) => {
  * @desc    Get unread notifications count
  * @access  Private (All authenticated users)
  */
-router.get('/unread', async (req, res) => {
+router.get('/unread', authenticateToken, async (req, res) => {
   try {
+    const { Notification } = getModels();
     const userId = req.user.id;
 
     const unreadCount = await Notification.count({
       where: {
-        userId,
-        status: 'unread'
+        user_id: userId,
+        is_read: false
       }
     });
 
@@ -105,13 +108,14 @@ router.get('/unread', async (req, res) => {
  * @desc    Mark notification as read
  * @access  Private (All authenticated users)
  */
-router.put('/:id/read', async (req, res) => {
+router.put('/:id/read', authenticateToken, async (req, res) => {
   try {
+    const { Notification } = getModels();
     const { id } = req.params;
     const userId = req.user.id;
 
     const notification = await Notification.findOne({
-      where: { id, userId }
+      where: { id, user_id: userId }
     });
 
     if (!notification) {
@@ -147,18 +151,19 @@ router.put('/:id/read', async (req, res) => {
  * @desc    Mark all notifications as read
  * @access  Private (All authenticated users)
  */
-router.put('/read-all', async (req, res) => {
+router.put('/read-all', authenticateToken, async (req, res) => {
   try {
+    const { Notification } = getModels();
     const userId = req.user.id;
 
     await Notification.update(
       {
         status: 'read',
-        readAt: new Date()
+        read_at: new Date()
       },
       {
         where: {
-          userId,
+          user_id: userId,
           status: 'unread'
         }
       }
@@ -185,13 +190,14 @@ router.put('/read-all', async (req, res) => {
  * @desc    Delete notification
  * @access  Private (All authenticated users)
  */
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', authenticateToken, async (req, res) => {
   try {
+    const { Notification } = getModels();
     const { id } = req.params;
     const userId = req.user.id;
 
     const notification = await Notification.findOne({
-      where: { id, userId }
+      where: { id, user_id: userId }
     });
 
     if (!notification) {
@@ -228,6 +234,7 @@ router.delete('/:id', async (req, res) => {
  * @access  Private (Managers, Admins)
  */
 router.post('/', [
+  authenticateToken,
   requireRole(['sales_manager', 'admin', 'super_admin']),
   body('userId').isUUID().withMessage('Valid user ID is required'),
   body('type').isIn(['call_started', 'call_completed', 'performance_alert', 'live_intervention', 'system_alert', 'reminder', 'achievement', 'coaching_tip']).withMessage('Valid notification type is required'),
@@ -236,6 +243,7 @@ router.post('/', [
   body('priority').optional().isIn(['low', 'medium', 'high', 'urgent']).withMessage('Valid priority is required')
 ], async (req, res) => {
   try {
+    const { Notification, User } = getModels();
     // Check for validation errors
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -261,11 +269,11 @@ router.post('/', [
       relatedEntityId
     } = req.body;
 
-    const organizationId = req.user.organizationId;
+    const organization_id = req.user.organization_id;
 
     // Verify user belongs to the same organization
     const targetUser = await User.findOne({
-      where: { id: userId, organizationId }
+      where: { id: userId, organization_id }
     });
 
     if (!targetUser) {
@@ -280,8 +288,8 @@ router.post('/', [
 
     // Create notification
     const notification = await Notification.create({
-      organizationId,
-      userId,
+      organization_id,
+      user_id: userId,
       type,
       title,
       message,
@@ -320,13 +328,14 @@ router.post('/', [
  * @access  Private (Managers, Admins)
  */
 router.get('/organization', [
+  authenticateToken,
   requireRole(['sales_manager', 'admin', 'super_admin'])
 ], async (req, res) => {
   try {
     const { page = 1, limit = 20, type, status } = req.query;
-    const organizationId = req.user.organizationId;
+    const organization_id = req.user.organization_id;
 
-    const whereClause = { organizationId };
+    const whereClause = { organization_id };
     if (type) whereClause.type = type;
     if (status) whereClause.status = status;
 
@@ -336,12 +345,12 @@ router.get('/organization', [
         {
           model: User,
           as: 'user',
-          attributes: ['id', 'firstName', 'lastName', 'email']
+          attributes: ['id', 'first_name', 'last_name', 'email']
         }
       ],
       limit: parseInt(limit),
       offset: (parseInt(page) - 1) * parseInt(limit),
-      order: [['createdAt', 'DESC']]
+      order: [['created_at', 'DESC']]
     });
 
     res.status(200).json({
@@ -374,6 +383,7 @@ router.get('/organization', [
  * @access  Private (Managers, Admins)
  */
 router.post('/send-email', [
+  authenticateToken,
   requireRole(['sales_manager', 'admin', 'super_admin']),
   body('userId').isUUID().withMessage('Valid user ID is required'),
   body('subject').notEmpty().withMessage('Subject is required'),
@@ -394,15 +404,15 @@ router.post('/send-email', [
     }
 
     const { userId, subject, message } = req.body;
-    const organizationId = req.user.organizationId;
+    const organization_id = req.user.organization_id;
 
     // Find user
     const user = await User.findOne({
       where: { 
         id: userId, 
-        organizationId 
+        organization_id 
       },
-      attributes: ['id', 'firstName', 'lastName', 'email']
+      attributes: ['id', 'first_name', 'last_name', 'email']
     });
 
     if (!user) {
@@ -421,8 +431,8 @@ router.post('/send-email', [
       
       // Create notification record
       const notification = await Notification.create({
-        organizationId,
-        userId,
+        organization_id,
+        user_id: userId,
         type: 'email',
         title: subject,
         message,

@@ -1,6 +1,12 @@
 const jwt = require('jsonwebtoken');
-const { User } = require('../database/models');
+const { getSequelize } = require('../database/connection');
 const { logger } = require('../utils/logger');
+
+// Helper to access initialized models from sequelize instance
+const getModels = () => {
+  const sequelize = getSequelize();
+  return sequelize?.models || {};
+};
 
 /**
  * Middleware to authenticate JWT tokens
@@ -20,12 +26,15 @@ const authenticateToken = async (req, res, next) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     
     // Get user from database
+    const { User, Organization } = getModels();
+    if (!User) throw new Error('Models not initialized');
+
     const user = await User.findByPk(decoded.userId, {
       include: [
         {
-          model: require('../database/models').Organization,
+          model: Organization,
           as: 'organization',
-          attributes: ['id', 'name', 'type', 'status', 'subscriptionPlan']
+          attributes: ['id', 'name', 'type', 'status', 'subscription_plan']
         }
       ]
     });
@@ -44,8 +53,8 @@ const authenticateToken = async (req, res, next) => {
       });
     }
 
-    // Check if organization is active
-    if (user.organization.status !== 'active') {
+    // Check if organization is active (only if user has an organization)
+    if (user.organization && user.organization.status !== 'active') {
       return res.status(401).json({
         error: 'Organization account is not active',
         code: 'ORGANIZATION_INACTIVE'
@@ -56,7 +65,7 @@ const authenticateToken = async (req, res, next) => {
     req.user = user;
     
     // Update last login time
-    await user.update({ lastLoginAt: new Date() });
+    await user.update({ last_login_at: new Date() });
 
     next();
   } catch (error) {
@@ -130,6 +139,17 @@ const requireOrganizationAccess = (organizationIdParam = 'organizationId') => {
       return next();
     }
 
+    // Users without an organization can only access resources that don't require organization
+    if (!userOrgId) {
+      if (requestedOrgId) {
+        return res.status(403).json({
+          error: 'User does not belong to an organization',
+          code: 'NO_ORGANIZATION'
+        });
+      }
+      return next();
+    }
+
     // Users can only access their own organization
     if (requestedOrgId !== userOrgId) {
       return res.status(403).json({
@@ -164,10 +184,12 @@ const requireManagerAccess = (userIdParam = 'userId') => {
 
     // Managers can only access their subordinates
     if (req.user.role === 'sales_manager') {
+      const { User } = getModels();
+      if (!User) return res.status(500).json({ error: 'Models not initialized', code: 'MODELS_NOT_INITIALIZED' });
       const subordinate = await User.findOne({
         where: {
           id: requestedUserId,
-          managerId: managerId
+          manager_id: managerId
         }
       });
 
@@ -201,7 +223,7 @@ const generateToken = (user) => {
     userId: user.id,
     email: user.email,
     role: user.role,
-    organizationId: user.organizationId
+    organizationId: user.organization_id || null
   };
 
   return jwt.sign(payload, process.env.JWT_SECRET, {
@@ -234,6 +256,8 @@ const verifyRefreshToken = async (refreshToken) => {
       throw new Error('Invalid token type');
     }
 
+    const { User } = getModels();
+    if (!User) throw new Error('Models not initialized');
     const user = await User.findByPk(decoded.userId);
     if (!user || user.status !== 'active') {
       throw new Error('User not found or inactive');

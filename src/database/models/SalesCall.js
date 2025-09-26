@@ -13,7 +13,7 @@ const defineSalesCall = (sequelize) => {
     },
     organization_id: {
       type: DataTypes.UUID,
-      allowNull: false,
+      allowNull: true, // Allow null for external webhooks
       references: {
         model: 'organizations',
         key: 'id'
@@ -21,7 +21,7 @@ const defineSalesCall = (sequelize) => {
     },
     sales_representative_id: {
       type: DataTypes.UUID,
-      allowNull: false,
+      allowNull: true, // Allow null for external webhooks without userId
       references: {
         model: 'users',
         key: 'id'

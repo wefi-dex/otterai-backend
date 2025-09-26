@@ -1,7 +1,7 @@
 const express = require('express');
 const { body, validationResult } = require('express-validator');
 const { getSequelize } = require('../database/connection');
-const { requireRole } = require('../middleware/auth');
+const { authenticateToken, requireRole } = require('../middleware/auth');
 const { logger } = require('../utils/logger');
 
 const router = express.Router();
@@ -26,6 +26,7 @@ const getModels = () => {
  * @access  Private (Super Admins)
  */
 router.get('/', [
+  authenticateToken,
   requireRole(['super_admin'])
 ], async (req, res) => {
   try {
@@ -41,12 +42,12 @@ router.get('/', [
         {
           model: getModels().User,
           as: 'users',
-          attributes: ['id', 'firstName', 'lastName', 'email', 'role']
+          attributes: ['id', 'first_name', 'last_name', 'email', 'role']
         }
       ],
       limit: parseInt(limit),
       offset: (parseInt(page) - 1) * parseInt(limit),
-      order: [['createdAt', 'DESC']]
+      order: [['created_at', 'DESC']]
     });
 
     res.status(200).json({
@@ -79,6 +80,7 @@ router.get('/', [
  * @access  Private (Super Admins, Organization Admins)
  */
 router.get('/:id', [
+  authenticateToken,
   requireRole(['super_admin', 'admin'])
 ], async (req, res) => {
   try {
@@ -89,7 +91,7 @@ router.get('/:id', [
         {
           model: getModels().User,
           as: 'users',
-          attributes: ['id', 'firstName', 'lastName', 'email', 'role', 'status']
+          attributes: ['id', 'first_name', 'last_name', 'email', 'role', 'status']
         }
       ]
     });
@@ -126,12 +128,13 @@ router.get('/:id', [
  * @access  Private (Super Admins)
  */
 router.post('/', [
+  authenticateToken,
   requireRole(['super_admin']),
   body('name').notEmpty().withMessage('Organization name is required'),
   body('type').isIn(['branch', 'headquarters', 'subsidiary']).withMessage('Valid organization type is required'),
   body('email').optional().isEmail().withMessage('Valid email is required'),
   body('phone').optional().notEmpty().withMessage('Phone number cannot be empty'),
-  body('subscriptionPlan').isIn(['beta', 'basic', 'professional', 'enterprise']).withMessage('Valid subscription plan is required')
+  body('subscription_plan').isIn(['beta', 'basic', 'professional', 'enterprise']).withMessage('Valid subscription plan is required')
 ], async (req, res) => {
   try {
     // Check for validation errors
@@ -150,13 +153,13 @@ router.post('/', [
     const {
       name,
       type,
-      parentOrganizationId,
+      parent_organization_id,
       address,
       phone,
       email,
       website,
-      subscriptionPlan,
-      maxUsers,
+      subscription_plan,
+      max_users,
       settings,
       timezone,
       currency
@@ -166,18 +169,18 @@ router.post('/', [
     const organization = await getModels().Organization.create({
       name,
       type,
-      parentOrganizationId,
+      parent_organization_id,
       address,
       phone,
       email,
       website,
-      subscriptionPlan,
-      maxUsers: maxUsers || 10,
+      subscription_plan,
+      max_users: max_users || 10,
       settings: settings || {},
       timezone: timezone || 'America/New_York',
       currency: currency || 'USD',
-      subscriptionStartDate: new Date(),
-      subscriptionEndDate: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000) // 1 year from now
+      subscription_start_date: new Date(),
+      subscription_end_date: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000) // 1 year from now
     });
 
     logger.logUserActivity(req.user.id, 'organization_created', {
@@ -208,11 +211,12 @@ router.post('/', [
  * @access  Private (Super Admins, Organization Admins)
  */
 router.put('/:id', [
+  authenticateToken,
   requireRole(['super_admin', 'admin']),
   body('name').optional().notEmpty().withMessage('Organization name cannot be empty'),
   body('type').optional().isIn(['branch', 'headquarters', 'subsidiary']).withMessage('Valid organization type is required'),
   body('email').optional().isEmail().withMessage('Valid email is required'),
-  body('subscriptionPlan').optional().isIn(['beta', 'basic', 'professional', 'enterprise']).withMessage('Valid subscription plan is required')
+  body('subscription_plan').optional().isIn(['beta', 'basic', 'professional', 'enterprise']).withMessage('Valid subscription plan is required')
 ], async (req, res) => {
   try {
     // Check for validation errors
@@ -272,6 +276,7 @@ router.put('/:id', [
  * @access  Private (Super Admins)
  */
 router.delete('/:id', [
+  authenticateToken,
   requireRole(['super_admin'])
 ], async (req, res) => {
   try {
@@ -318,6 +323,7 @@ router.delete('/:id', [
  * @access  Private (Super Admins, Organization Admins)
  */
 router.get('/:id/branches', [
+  authenticateToken,
   requireRole(['super_admin', 'admin'])
 ], async (req, res) => {
   try {
@@ -347,6 +353,7 @@ router.get('/:id/branches', [
  * @access  Private (Super Admins, Organization Admins)
  */
 router.get('/:id/stats', [
+  authenticateToken,
   requireRole(['super_admin', 'admin'])
 ], async (req, res) => {
   try {

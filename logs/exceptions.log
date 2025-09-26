@@ -1,0 +1,75 @@
+2025-09-26 01:48:42 [ERROR]: uncaughtException: listen EADDRINUSE: address already in use :::3001
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at startServer (D:\Projects\otterai\otterai-backend\src\server.js:141:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5) {"error":{"code":"EADDRINUSE","errno":-4091,"syscall":"listen","address":"::","port":3001},"exception":true,"date":"Fri Sep 26 2025 01:48:42 GMT+0900 (Japan Standard Time)","process":{"pid":24492,"uid":null,"gid":null,"cwd":"D:\\Projects\\otterai\\otterai-backend","execPath":"C:\\Program Files\\nodejs\\node.exe","version":"v24.5.0","argv":["C:\\Program Files\\nodejs\\node.exe","D:\\Projects\\otterai\\otterai-backend\\src\\server.js"],"memoryUsage":{"rss":121475072,"heapTotal":105115648,"heapUsed":45095840,"external":3837739,"arrayBuffers":211026}},"os":{"loadavg":[0,0,0],"uptime":335.453},"trace":[{"column":16,"file":"node:net","function":"Server.setupListenHandle [as _listen2]","line":1940,"method":"setupListenHandle [as _listen2]","native":false},{"column":12,"file":"node:net","function":"listenInCluster","line":1997,"method":null,"native":false},{"column":7,"file":"node:net","function":"Server.listen","line":2102,"method":"listen","native":false},{"column":12,"file":"D:\\Projects\\otterai\\otterai-backend\\src\\server.js","function":"startServer","line":141,"method":null,"native":false},{"column":5,"file":"node:internal/process/task_queues","function":"process.processTicksAndRejections","line":105,"method":"processTicksAndRejections","native":false}],"service":"otterai-sales-analytics","environment":"development"}
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at startServer (D:\Projects\otterai\otterai-backend\src\server.js:141:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+2025-09-26 02:21:02 [ERROR]: uncaughtException: Unexpected token 'else'
+D:\Projects\otterai\otterai-backend\src\routes\zapier.js:792
+        } else {
+          ^^^^
+
+SyntaxError: Unexpected token 'else'
+    at wrapSafe (node:internal/modules/cjs/loader:1669:18)
+    at Module._compile (node:internal/modules/cjs/loader:1712:20)
+    at Object..js (node:internal/modules/cjs/loader:1871:10)
+    at Module.load (node:internal/modules/cjs/loader:1470:32)
+    at Module._load (node:internal/modules/cjs/loader:1290:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:238:24)
+    at Module.require (node:internal/modules/cjs/loader:1493:12)
+    at require (node:internal/modules/helpers:152:16)
+    at Object.<anonymous> (D:\Projects\otterai\otterai-backend\src\server.js:26:22) {"error":{},"exception":true,"date":"Fri Sep 26 2025 02:21:02 GMT+0900 (Japan Standard Time)","process":{"pid":25040,"uid":null,"gid":null,"cwd":"D:\\Projects\\otterai\\otterai-backend","execPath":"C:\\Program Files\\nodejs\\node.exe","version":"v24.5.0","argv":["C:\\Program Files\\nodejs\\node.exe","D:\\Projects\\otterai\\otterai-backend\\src\\server.js"],"memoryUsage":{"rss":83836928,"heapTotal":37355520,"heapUsed":26693304,"external":3558711,"arrayBuffers":19493}},"os":{"loadavg":[0,0,0],"uptime":2275.093},"trace":[{"column":18,"file":"node:internal/modules/cjs/loader","function":"wrapSafe","line":1669,"method":null,"native":false},{"column":20,"file":"node:internal/modules/cjs/loader","function":"Module._compile","line":1712,"method":"_compile","native":false},{"column":10,"file":"node:internal/modules/cjs/loader","function":"Object..js","line":1871,"method":".js","native":false},{"column":32,"file":"node:internal/modules/cjs/loader","function":"Module.load","line":1470,"method":"load","native":false},{"column":12,"file":"node:internal/modules/cjs/loader","function":"Module._load","line":1290,"method":"_load","native":false},{"column":14,"file":"node:diagnostics_channel","function":"TracingChannel.traceSync","line":322,"method":"traceSync","native":false},{"column":24,"file":"node:internal/modules/cjs/loader","function":"wrapModuleLoad","line":238,"method":null,"native":false},{"column":12,"file":"node:internal/modules/cjs/loader","function":"Module.require","line":1493,"method":"require","native":false},{"column":16,"file":"node:internal/modules/helpers","function":"require","line":152,"method":null,"native":false},{"column":22,"file":"D:\\Projects\\otterai\\otterai-backend\\src\\server.js","function":null,"line":26,"method":null,"native":false}],"service":"otterai-sales-analytics","environment":"development"}
+D:\Projects\otterai\otterai-backend\src\routes\zapier.js:792
+        } else {
+          ^^^^
+
+SyntaxError: Unexpected token 'else'
+    at wrapSafe (node:internal/modules/cjs/loader:1669:18)
+    at Module._compile (node:internal/modules/cjs/loader:1712:20)
+    at Object..js (node:internal/modules/cjs/loader:1871:10)
+    at Module.load (node:internal/modules/cjs/loader:1470:32)
+    at Module._load (node:internal/modules/cjs/loader:1290:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:238:24)
+    at Module.require (node:internal/modules/cjs/loader:1493:12)
+    at require (node:internal/modules/helpers:152:16)
+    at Object.<anonymous> (D:\Projects\otterai\otterai-backend\src\server.js:26:22)
+2025-09-26 02:21:11 [ERROR]: uncaughtException: Unexpected token 'else'
+D:\Projects\otterai\otterai-backend\src\routes\zapier.js:792
+        } else {
+          ^^^^
+
+SyntaxError: Unexpected token 'else'
+    at wrapSafe (node:internal/modules/cjs/loader:1669:18)
+    at Module._compile (node:internal/modules/cjs/loader:1712:20)
+    at Object..js (node:internal/modules/cjs/loader:1871:10)
+    at Module.load (node:internal/modules/cjs/loader:1470:32)
+    at Module._load (node:internal/modules/cjs/loader:1290:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:238:24)
+    at Module.require (node:internal/modules/cjs/loader:1493:12)
+    at require (node:internal/modules/helpers:152:16)
+    at Object.<anonymous> (D:\Projects\otterai\otterai-backend\src\server.js:26:22) {"error":{},"exception":true,"date":"Fri Sep 26 2025 02:21:11 GMT+0900 (Japan Standard Time)","process":{"pid":4156,"uid":null,"gid":null,"cwd":"D:\\Projects\\otterai\\otterai-backend","execPath":"C:\\Program Files\\nodejs\\node.exe","version":"v24.5.0","argv":["C:\\Program Files\\nodejs\\node.exe","D:\\Projects\\otterai\\otterai-backend\\src\\server.js"],"memoryUsage":{"rss":87248896,"heapTotal":56229888,"heapUsed":24335688,"external":3558711,"arrayBuffers":19493}},"os":{"loadavg":[0,0,0],"uptime":2284.421},"trace":[{"column":18,"file":"node:internal/modules/cjs/loader","function":"wrapSafe","line":1669,"method":null,"native":false},{"column":20,"file":"node:internal/modules/cjs/loader","function":"Module._compile","line":1712,"method":"_compile","native":false},{"column":10,"file":"node:internal/modules/cjs/loader","function":"Object..js","line":1871,"method":".js","native":false},{"column":32,"file":"node:internal/modules/cjs/loader","function":"Module.load","line":1470,"method":"load","native":false},{"column":12,"file":"node:internal/modules/cjs/loader","function":"Module._load","line":1290,"method":"_load","native":false},{"column":14,"file":"node:diagnostics_channel","function":"TracingChannel.traceSync","line":322,"method":"traceSync","native":false},{"column":24,"file":"node:internal/modules/cjs/loader","function":"wrapModuleLoad","line":238,"method":null,"native":false},{"column":12,"file":"node:internal/modules/cjs/loader","function":"Module.require","line":1493,"method":"require","native":false},{"column":16,"file":"node:internal/modules/helpers","function":"require","line":152,"method":null,"native":false},{"column":22,"file":"D:\\Projects\\otterai\\otterai-backend\\src\\server.js","function":null,"line":26,"method":null,"native":false}],"service":"otterai-sales-analytics","environment":"development"}
+D:\Projects\otterai\otterai-backend\src\routes\zapier.js:792
+        } else {
+          ^^^^
+
+SyntaxError: Unexpected token 'else'
+    at wrapSafe (node:internal/modules/cjs/loader:1669:18)
+    at Module._compile (node:internal/modules/cjs/loader:1712:20)
+    at Object..js (node:internal/modules/cjs/loader:1871:10)
+    at Module.load (node:internal/modules/cjs/loader:1470:32)
+    at Module._load (node:internal/modules/cjs/loader:1290:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:238:24)
+    at Module.require (node:internal/modules/cjs/loader:1493:12)
+    at require (node:internal/modules/helpers:152:16)
+    at Object.<anonymous> (D:\Projects\otterai\otterai-backend\src\server.js:26:22)

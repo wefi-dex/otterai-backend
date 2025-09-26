@@ -54,7 +54,7 @@ const defineUser = (sequelize) => {
     },
     organization_id: {
       type: DataTypes.UUID,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'organizations',
         key: 'id'
@@ -149,7 +149,29 @@ const defineUser = (sequelize) => {
   User.prototype.toJSON = function() {
     const values = Object.assign({}, this.get());
     delete values.password;
-    return values;
+    
+    // Convert snake_case to camelCase for frontend compatibility
+    return {
+      id: values.id,
+      email: values.email,
+      firstName: values.first_name,
+      lastName: values.last_name,
+      phone: values.phone,
+      role: values.role,
+      status: values.status,
+      organizationId: values.organization_id,
+      managerId: values.manager_id,
+      lastLoginAt: values.last_login_at,
+      preferences: values.preferences,
+      profileImageUrl: values.profile_image_url,
+      isOnline: values.is_online,
+      deviceToken: values.device_token,
+      resetPasswordToken: values.reset_password_token,
+      resetPasswordExpires: values.reset_password_expires,
+      createdAt: values.created_at,
+      updatedAt: values.updated_at,
+      organization: values.organization
+    };
   };
 
   // Class methods

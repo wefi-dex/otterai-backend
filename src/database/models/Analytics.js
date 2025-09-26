@@ -13,7 +13,7 @@ const defineAnalytics = (sequelize) => {
     },
     organization_id: {
       type: DataTypes.UUID,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'organizations',
         key: 'id'

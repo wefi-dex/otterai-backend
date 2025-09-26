@@ -13,7 +13,7 @@ const defineNotification = (sequelize) => {
     },
     organization_id: {
       type: DataTypes.UUID,
-      allowNull: false,
+      allowNull: true, // Allow null for external webhooks
       references: {
         model: 'organizations',
         key: 'id'
@@ -21,7 +21,7 @@ const defineNotification = (sequelize) => {
     },
     user_id: {
       type: DataTypes.UUID,
-      allowNull: false,
+      allowNull: true, // Allow null for external webhooks
       references: {
         model: 'users',
         key: 'id'
@@ -183,6 +183,32 @@ const defineNotification = (sequelize) => {
         }
       }
     });
+  };
+
+  // Instance methods
+  Notification.prototype.toJSON = function() {
+    const values = Object.assign({}, this.get());
+    
+    // Convert snake_case to camelCase for frontend compatibility
+    return {
+      id: values.id,
+      organizationId: values.organization_id,
+      userId: values.user_id,
+      type: values.type,
+      title: values.title,
+      message: values.message,
+      priority: values.priority,
+      status: values.is_read ? 'read' : 'unread',
+      readAt: values.read_at,
+      actionUrl: values.action_url,
+      actionData: values.action_data,
+      relatedEntityType: values.related_entity_type,
+      relatedEntityId: values.related_entity_id,
+      expiresAt: values.expires_at,
+      createdAt: values.created_at,
+      updatedAt: values.updated_at,
+      user: values.user
+    };
   };
 
   return Notification;

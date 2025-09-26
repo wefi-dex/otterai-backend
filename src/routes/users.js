@@ -1,7 +1,7 @@
 const express = require('express');
 const { body, validationResult } = require('express-validator');
 const { getSequelize } = require('../database/connection');
-const { requireRole, requireManagerAccess } = require('../middleware/auth');
+const { authenticateToken, requireRole, requireManagerAccess } = require('../middleware/auth');
 const { logger } = require('../utils/logger');
 
 const router = express.Router();
@@ -25,13 +25,20 @@ const getModels = () => {
  * @access  Private (Managers, Admins)
  */
 router.get('/', [
+  authenticateToken,
   requireRole(['sales_manager', 'admin', 'super_admin'])
 ], async (req, res) => {
   try {
     const { page = 1, limit = 10, role, status } = req.query;
-    const organizationId = req.user.organizationId;
+    const organization_id = req.user.organization_id;
 
-    const whereClause = { organizationId };
+    const whereClause = {};
+    
+    // Only filter by organization if user has one, super_admin can see all users
+    if (organization_id && req.user.role !== 'super_admin') {
+      whereClause.organization_id = organization_id;
+    }
+    
     if (role) whereClause.role = role;
     if (status) whereClause.status = status;
 
@@ -39,7 +46,7 @@ router.get('/', [
       where: whereClause,
       limit: parseInt(limit),
       offset: (parseInt(page) - 1) * parseInt(limit),
-      order: [['createdAt', 'DESC']]
+      order: [['created_at', 'DESC']]
     });
 
     res.status(200).json({
@@ -72,6 +79,7 @@ router.get('/', [
  * @access  Private (Managers, Admins, Self)
  */
 router.get('/:id', [
+  authenticateToken,
   requireManagerAccess('id')
 ], async (req, res) => {
   try {
@@ -110,11 +118,12 @@ router.get('/:id', [
  * @access  Private (Managers, Admins)
  */
 router.post('/', [
+  authenticateToken,
   requireRole(['sales_manager', 'admin', 'super_admin']),
   body('email').isEmail().withMessage('Valid email is required'),
   body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters'),
-  body('firstName').notEmpty().withMessage('First name is required'),
-  body('lastName').notEmpty().withMessage('Last name is required'),
+  body('first_name').notEmpty().withMessage('First name is required'),
+  body('last_name').notEmpty().withMessage('Last name is required'),
   body('role').isIn(['sales_representative', 'sales_manager']).withMessage('Valid role is required')
 ], async (req, res) => {
   try {
@@ -131,8 +140,8 @@ router.post('/', [
       });
     }
 
-    const { email, password, firstName, lastName, role, managerId, phone } = req.body;
-    const organizationId = req.user.organizationId;
+    const { email, password, first_name, last_name, role, manager_id, phone } = req.body;
+    const organization_id = req.user.organization_id;
 
     // Check if user already exists
     const existingUser = await getModels().User.findByEmail(email);
@@ -150,11 +159,11 @@ router.post('/', [
     const user = await getModels().User.create({
       email,
       password,
-      firstName,
-      lastName,
+      first_name,
+      last_name,
       role,
-      organizationId,
-      managerId,
+      organization_id,
+      manager_id,
       phone
     });
 
@@ -186,9 +195,10 @@ router.post('/', [
  * @access  Private (Managers, Admins, Self)
  */
 router.put('/:id', [
+  authenticateToken,
   requireManagerAccess('id'),
-  body('firstName').optional().notEmpty().withMessage('First name cannot be empty'),
-  body('lastName').optional().notEmpty().withMessage('Last name cannot be empty'),
+  body('first_name').optional().notEmpty().withMessage('First name cannot be empty'),
+  body('last_name').optional().notEmpty().withMessage('Last name cannot be empty'),
   body('role').optional().isIn(['sales_representative', 'sales_manager']).withMessage('Valid role is required'),
   body('status').optional().isIn(['active', 'inactive', 'suspended']).withMessage('Valid status is required')
 ], async (req, res) => {
@@ -250,6 +260,7 @@ router.put('/:id', [
  * @access  Private (Managers, Admins)
  */
 router.delete('/:id', [
+  authenticateToken,
   requireRole(['sales_manager', 'admin', 'super_admin']),
   requireManagerAccess('id')
 ], async (req, res) => {

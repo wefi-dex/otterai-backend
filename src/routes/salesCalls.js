@@ -1,7 +1,7 @@
 const express = require('express');
 const { body, validationResult } = require('express-validator');
 const { getSequelize } = require('../database/connection');
-const { requireRole, requireManagerAccess } = require('../middleware/auth');
+const { requireRole, requireManagerAccess, authenticateToken } = require('../middleware/auth');
 const { logger } = require('../utils/logger');
 
 const router = express.Router();
@@ -26,17 +26,18 @@ const getModels = () => {
  * @desc    Get all sales calls for organization
  * @access  Private (All authenticated users)
  */
-router.get('/', async (req, res) => {
+router.get('/', authenticateToken, async (req, res) => {
   try {
     const { page = 1, limit = 10, status, outcome, salesRepresentativeId, startDate, endDate } = req.query;
-    const organizationId = req.user.organizationId;
+    const organizationId = req.user.organization_id;
+    const { SalesCall, User } = getModels();
 
-    const whereClause = { organizationId };
+    const whereClause = { organization_id: organizationId };
     if (status) whereClause.status = status;
     if (outcome) whereClause.outcome = outcome;
-    if (salesRepresentativeId) whereClause.salesRepresentativeId = salesRepresentativeId;
+    if (salesRepresentativeId) whereClause.sales_representative_id = salesRepresentativeId;
     if (startDate && endDate) {
-      whereClause.appointmentDate = {
+      whereClause.appointment_date = {
         [require('sequelize').Op.between]: [new Date(startDate), new Date(endDate)]
       };
     }
@@ -47,17 +48,17 @@ router.get('/', async (req, res) => {
         {
           model: User,
           as: 'salesRepresentative',
-          attributes: ['id', 'firstName', 'lastName', 'email']
+          attributes: ['id', 'first_name', 'last_name', 'email']
         },
         {
           model: User,
           as: 'manager',
-          attributes: ['id', 'firstName', 'lastName', 'email']
+          attributes: ['id', 'first_name', 'last_name', 'email']
         }
       ],
       limit: parseInt(limit),
       offset: (parseInt(page) - 1) * parseInt(limit),
-      order: [['appointmentDate', 'DESC']]
+      order: [['appointment_date', 'DESC']]
     });
 
     res.status(200).json({
@@ -89,23 +90,24 @@ router.get('/', async (req, res) => {
  * @desc    Get sales call by ID
  * @access  Private (All authenticated users)
  */
-router.get('/:id', async (req, res) => {
+router.get('/:id', authenticateToken, async (req, res) => {
   try {
     const { id } = req.params;
-    const organizationId = req.user.organizationId;
+    const organizationId = req.user.organization_id;
+    const { SalesCall, User } = getModels();
 
     const salesCall = await SalesCall.findOne({
-      where: { id, organizationId },
+      where: { id, organization_id: organizationId },
       include: [
         {
           model: User,
           as: 'salesRepresentative',
-          attributes: ['id', 'firstName', 'lastName', 'email']
+          attributes: ['id', 'first_name', 'last_name', 'email']
         },
         {
           model: User,
           as: 'manager',
-          attributes: ['id', 'firstName', 'lastName', 'email']
+          attributes: ['id', 'first_name', 'last_name', 'email']
         }
       ]
     });
@@ -142,10 +144,11 @@ router.get('/:id', async (req, res) => {
  * @access  Private (Sales Representatives, Managers, Admins)
  */
 router.post('/', [
+  authenticateToken,
   requireRole(['sales_representative', 'sales_manager', 'admin', 'super_admin']),
-  body('customerName').notEmpty().withMessage('Customer name is required'),
-  body('appointmentDate').isISO8601().withMessage('Valid appointment date is required'),
-  body('salesRepresentativeId').isUUID().withMessage('Valid sales representative ID is required')
+  body('customer_name').notEmpty().withMessage('Customer name is required'),
+  body('appointment_date').isISO8601().withMessage('Valid appointment date is required'),
+  body('sales_representative_id').isUUID().withMessage('Valid sales representative ID is required')
 ], async (req, res) => {
   try {
     // Check for validation errors
@@ -162,33 +165,34 @@ router.post('/', [
     }
 
     const {
-      customerName,
-      customerPhone,
-      customerEmail,
-      appointmentDate,
-      salesRepresentativeId,
-      managerId,
+      customer_name,
+      customer_phone,
+      customer_email,
+      appointment_date,
+      sales_representative_id,
+      manager_id,
       notes
     } = req.body;
 
-    const organizationId = req.user.organizationId;
+    const organizationId = req.user.organization_id;
+    const { SalesCall } = getModels();
 
     // Create sales call
     const salesCall = await SalesCall.create({
-      customerName,
-      customerPhone,
-      customerEmail,
-      appointmentDate,
-      salesRepresentativeId,
-      managerId,
-      organizationId,
+      customer_name,
+      customer_phone,
+      customer_email,
+      appointment_date,
+      sales_representative_id,
+      manager_id,
+      organization_id: organizationId,
       notes
     });
 
     logger.logSalesCallEvent('created', salesCall.id, {
       userId: req.user.id,
-      customerName,
-      appointmentDate
+      customerName: customer_name,
+      appointmentDate: appointment_date
     });
 
     res.status(201).json({
@@ -213,9 +217,10 @@ router.post('/', [
  * @access  Private (Sales Representatives, Managers, Admins)
  */
 router.put('/:id', [
+  authenticateToken,
   requireRole(['sales_representative', 'sales_manager', 'admin', 'super_admin']),
-  body('customerName').optional().notEmpty().withMessage('Customer name cannot be empty'),
-  body('appointmentDate').optional().isISO8601().withMessage('Valid appointment date is required'),
+  body('customer_name').optional().notEmpty().withMessage('Customer name cannot be empty'),
+  body('appointment_date').optional().isISO8601().withMessage('Valid appointment date is required'),
   body('status').optional().isIn(['scheduled', 'in_progress', 'completed', 'cancelled', 'no_show']).withMessage('Valid status is required'),
   body('outcome').optional().isIn(['sale', 'no_sale', 'follow_up', 'rescheduled']).withMessage('Valid outcome is required')
 ], async (req, res) => {
@@ -235,10 +240,11 @@ router.put('/:id', [
 
     const { id } = req.params;
     const updateData = req.body;
-    const organizationId = req.user.organizationId;
+    const organizationId = req.user.organization_id;
+    const { SalesCall } = getModels();
 
     const salesCall = await SalesCall.findOne({
-      where: { id, organizationId }
+      where: { id, organization_id: organizationId }
     });
 
     if (!salesCall) {
@@ -281,14 +287,16 @@ router.put('/:id', [
  * @access  Private (Managers, Admins)
  */
 router.delete('/:id', [
+  authenticateToken,
   requireRole(['sales_manager', 'admin', 'super_admin'])
 ], async (req, res) => {
   try {
     const { id } = req.params;
-    const organizationId = req.user.organizationId;
+    const organizationId = req.user.organization_id;
+    const { SalesCall } = getModels();
 
     const salesCall = await SalesCall.findOne({
-      where: { id, organizationId }
+      where: { id, organization_id: organizationId }
     });
 
     if (!salesCall) {
@@ -329,14 +337,16 @@ router.delete('/:id', [
  * @access  Private (Sales Representatives, Managers, Admins)
  */
 router.post('/:id/start', [
+  authenticateToken,
   requireRole(['sales_representative', 'sales_manager', 'admin', 'super_admin'])
 ], async (req, res) => {
   try {
     const { id } = req.params;
-    const organizationId = req.user.organizationId;
+    const organizationId = req.user.organization_id;
+    const { SalesCall } = getModels();
 
     const salesCall = await SalesCall.findOne({
-      where: { id, organizationId }
+      where: { id, organization_id: organizationId }
     });
 
     if (!salesCall) {
@@ -352,7 +362,7 @@ router.post('/:id/start', [
     // Update status to in progress
     await salesCall.update({
       status: 'in_progress',
-      callStartTime: new Date()
+      call_start_time: new Date()
     });
 
     logger.logSalesCallEvent('started', salesCall.id, {
@@ -381,9 +391,10 @@ router.post('/:id/start', [
  * @access  Private (Sales Representatives, Managers, Admins)
  */
 router.post('/:id/complete', [
+  authenticateToken,
   requireRole(['sales_representative', 'sales_manager', 'admin', 'super_admin']),
   body('outcome').isIn(['sale', 'no_sale', 'follow_up', 'rescheduled']).withMessage('Valid outcome is required'),
-  body('saleAmount').optional().isFloat({ min: 0 }).withMessage('Sale amount must be a positive number')
+  body('sale_amount').optional().isFloat({ min: 0 }).withMessage('Sale amount must be a positive number')
 ], async (req, res) => {
   try {
     // Check for validation errors
@@ -400,11 +411,12 @@ router.post('/:id/complete', [
     }
 
     const { id } = req.params;
-    const { outcome, saleAmount, notes } = req.body;
-    const organizationId = req.user.organizationId;
+    const { outcome, sale_amount, notes } = req.body;
+    const organizationId = req.user.organization_id;
+    const { SalesCall } = getModels();
 
     const salesCall = await SalesCall.findOne({
-      where: { id, organizationId }
+      where: { id, organization_id: organizationId }
     });
 
     if (!salesCall) {
@@ -421,15 +433,15 @@ router.post('/:id/complete', [
     await salesCall.update({
       status: 'completed',
       outcome,
-      saleAmount,
-      callEndTime: new Date(),
+      sale_amount,
+      call_end_time: new Date(),
       notes
     });
 
     logger.logSalesCallEvent('completed', salesCall.id, {
       userId: req.user.id,
       outcome,
-      saleAmount
+      saleAmount: sale_amount
     });
 
     res.status(200).json({

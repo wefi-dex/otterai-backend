@@ -1,6 +1,6 @@
 const express = require('express');
 const { getSequelize } = require('../database/connection');
-const { requireRole } = require('../middleware/auth');
+const { requireRole, authenticateToken } = require('../middleware/auth');
 const { logger } = require('../utils/logger');
 
 const router = express.Router();
@@ -25,14 +25,16 @@ const getModels = () => {
  * @desc    Get analytics overview for organization
  * @access  Private (All authenticated users)
  */
-router.get('/overview', async (req, res) => {
+router.get('/overview', authenticateToken, async (req, res) => {
   try {
     const { startDate, endDate } = req.query;
-    const organizationId = req.user.organizationId;
+    const organizationId = req.user.organization_id;
 
-    const whereClause = { organizationId };
+    const { SalesCall, User } = getModels();
+
+    const whereClause = { organization_id: organizationId };
     if (startDate && endDate) {
-      whereClause.appointmentDate = {
+      whereClause.appointment_date = {
         [require('sequelize').Op.between]: [new Date(startDate), new Date(endDate)]
       };
     }
@@ -44,7 +46,7 @@ router.get('/overview', async (req, res) => {
         {
           model: User,
           as: 'salesRepresentative',
-          attributes: ['id', 'firstName', 'lastName']
+          attributes: ['id', 'first_name', 'last_name']
         }
       ]
     });
@@ -54,8 +56,8 @@ router.get('/overview', async (req, res) => {
     const completedCalls = salesCalls.filter(call => call.status === 'completed').length;
     const successfulSales = salesCalls.filter(call => call.outcome === 'sale').length;
     const totalRevenue = salesCalls
-      .filter(call => call.saleAmount)
-      .reduce((sum, call) => sum + parseFloat(call.saleAmount), 0);
+      .filter(call => call.sale_amount)
+      .reduce((sum, call) => sum + parseFloat(call.sale_amount), 0);
 
     const averageCallDuration = salesCalls
       .filter(call => call.duration)
@@ -63,19 +65,19 @@ router.get('/overview', async (req, res) => {
       salesCalls.filter(call => call.duration).length || 0;
 
     const averagePerformanceScore = salesCalls
-      .filter(call => call.performanceScore)
-      .reduce((sum, call) => sum + parseFloat(call.performanceScore), 0) /
-      salesCalls.filter(call => call.performanceScore).length || 0;
+      .filter(call => call.performance_score)
+      .reduce((sum, call) => sum + parseFloat(call.performance_score), 0) /
+      salesCalls.filter(call => call.performance_score).length || 0;
 
     const conversionRate = completedCalls > 0 ? (successfulSales / completedCalls) * 100 : 0;
 
     // Get top performers
     const salesRepStats = {};
     salesCalls.forEach(call => {
-      if (!salesRepStats[call.salesRepresentativeId]) {
-        salesRepStats[call.salesRepresentativeId] = {
-          id: call.salesRepresentativeId,
-          name: `${call.salesRepresentative.firstName} ${call.salesRepresentative.lastName}`,
+      if (!salesRepStats[call.sales_representative_id]) {
+        salesRepStats[call.sales_representative_id] = {
+          id: call.sales_representative_id,
+          name: `${call.salesRepresentative.first_name} ${call.salesRepresentative.last_name}`,
           totalCalls: 0,
           successfulSales: 0,
           totalRevenue: 0,
@@ -84,13 +86,13 @@ router.get('/overview', async (req, res) => {
         };
       }
       
-      salesRepStats[call.salesRepresentativeId].totalCalls++;
+      salesRepStats[call.sales_representative_id].totalCalls++;
       if (call.outcome === 'sale') {
-        salesRepStats[call.salesRepresentativeId].successfulSales++;
-        salesRepStats[call.salesRepresentativeId].totalRevenue += parseFloat(call.saleAmount || 0);
+        salesRepStats[call.sales_representative_id].successfulSales++;
+        salesRepStats[call.sales_representative_id].totalRevenue += parseFloat(call.sale_amount || 0);
       }
-      if (call.performanceScore) {
-        salesRepStats[call.salesRepresentativeId].scores.push(parseFloat(call.performanceScore));
+      if (call.performance_score) {
+        salesRepStats[call.sales_representative_id].scores.push(parseFloat(call.performance_score));
       }
     });
 
@@ -138,23 +140,26 @@ router.get('/overview', async (req, res) => {
  * @access  Private (Managers, Admins)
  */
 router.get('/performance', [
+  authenticateToken,
   requireRole(['sales_manager', 'admin', 'super_admin'])
 ], async (req, res) => {
   try {
     const { startDate, endDate, salesRepresentativeId, periodType = 'monthly' } = req.query;
-    const organizationId = req.user.organizationId;
+    const organizationId = req.user.organization_id;
 
-    const whereClause = { organizationId };
+    const whereClause = { organization_id: organizationId };
     if (startDate && endDate) {
-      whereClause.appointmentDate = {
+      whereClause.appointment_date = {
         [require('sequelize').Op.between]: [new Date(startDate), new Date(endDate)]
       };
     }
     if (salesRepresentativeId) {
-      whereClause.salesRepresentativeId = salesRepresentativeId;
+      whereClause.sales_representative_id = salesRepresentativeId;
     }
 
     // Get analytics data
+    const { Analytics, SalesCall, User } = getModels();
+
     const analytics = await Analytics.findByOrganization(
       organizationId,
       periodType,
@@ -169,10 +174,10 @@ router.get('/performance', [
         {
           model: User,
           as: 'salesRepresentative',
-          attributes: ['id', 'firstName', 'lastName']
+          attributes: ['id', 'first_name', 'last_name']
         }
       ],
-      order: [['appointmentDate', 'ASC']]
+      order: [['appointment_date', 'ASC']]
     });
 
     // Calculate trends
@@ -247,11 +252,11 @@ router.get('/performance', [
  * @desc    Get analytics for specific user
  * @access  Private (Managers, Admins, Self)
  */
-router.get('/user/:userId', async (req, res) => {
+router.get('/user/:userId', authenticateToken, async (req, res) => {
   try {
     const { userId } = req.params;
     const { startDate, endDate } = req.query;
-    const organizationId = req.user.organizationId;
+    const organizationId = req.user.organization_id;
 
     // Verify user access
     if (req.user.role === 'sales_representative' && req.user.id !== userId) {
@@ -265,20 +270,22 @@ router.get('/user/:userId', async (req, res) => {
     }
 
     const whereClause = { 
-      organizationId,
-      salesRepresentativeId: userId
+      organization_id: organizationId,
+      sales_representative_id: userId
     };
     
     if (startDate && endDate) {
-      whereClause.appointmentDate = {
+      whereClause.appointment_date = {
         [require('sequelize').Op.between]: [new Date(startDate), new Date(endDate)]
       };
     }
 
     // Get user's sales calls
+    const { SalesCall, Analytics } = getModels();
+
     const salesCalls = await SalesCall.findAll({
       where: whereClause,
-      order: [['appointmentDate', 'DESC']]
+      order: [['appointment_date', 'DESC']]
     });
 
     // Calculate user metrics
@@ -286,18 +293,18 @@ router.get('/user/:userId', async (req, res) => {
     const completedCalls = salesCalls.filter(call => call.status === 'completed').length;
     const successfulSales = salesCalls.filter(call => call.outcome === 'sale').length;
     const totalRevenue = salesCalls
-      .filter(call => call.saleAmount)
-      .reduce((sum, call) => sum + parseFloat(call.saleAmount), 0);
+      .filter(call => call.sale_amount)
+      .reduce((sum, call) => sum + parseFloat(call.sale_amount), 0);
 
     const averagePerformanceScore = salesCalls
-      .filter(call => call.performanceScore)
-      .reduce((sum, call) => sum + parseFloat(call.performanceScore), 0) /
-      salesCalls.filter(call => call.performanceScore).length || 0;
+      .filter(call => call.performance_score)
+      .reduce((sum, call) => sum + parseFloat(call.performance_score), 0) /
+      salesCalls.filter(call => call.performance_score).length || 0;
 
     const averageScriptCompliance = salesCalls
-      .filter(call => call.scriptCompliance)
-      .reduce((sum, call) => sum + parseFloat(call.scriptCompliance), 0) /
-      salesCalls.filter(call => call.scriptCompliance).length || 0;
+      .filter(call => call.script_compliance)
+      .reduce((sum, call) => sum + parseFloat(call.script_compliance), 0) /
+      salesCalls.filter(call => call.script_compliance).length || 0;
 
     const conversionRate = completedCalls > 0 ? (successfulSales / completedCalls) * 100 : 0;
 
@@ -343,22 +350,25 @@ router.get('/user/:userId', async (req, res) => {
  * @access  Private (Managers, Admins)
  */
 router.get('/trends', [
+  authenticateToken,
   requireRole(['sales_manager', 'admin', 'super_admin'])
 ], async (req, res) => {
   try {
     const { startDate, endDate, periodType = 'weekly' } = req.query;
-    const organizationId = req.user.organizationId;
+    const organizationId = req.user.organization_id;
 
-    const whereClause = { organizationId };
+    const whereClause = { organization_id: organizationId };
     if (startDate && endDate) {
-      whereClause.appointmentDate = {
+      whereClause.appointment_date = {
         [require('sequelize').Op.between]: [new Date(startDate), new Date(endDate)]
       };
     }
 
+    const { SalesCall } = getModels();
+
     const salesCalls = await SalesCall.findAll({
       where: whereClause,
-      order: [['appointmentDate', 'ASC']]
+      order: [['appointment_date', 'ASC']]
     });
 
     const trends = calculateTrends(salesCalls, periodType);
@@ -388,7 +398,7 @@ const calculateTrends = (salesCalls, periodType) => {
 
   salesCalls.forEach(call => {
     let periodKey;
-    const date = new Date(call.appointmentDate);
+    const date = new Date(call.appointment_date);
 
     switch (periodType) {
       case 'daily':

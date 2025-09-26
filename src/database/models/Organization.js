@@ -207,6 +207,40 @@ const defineOrganization = (sequelize) => {
     return this.type === 'subsidiary';
   };
 
+  Organization.prototype.toJSON = function() {
+    const values = Object.assign({}, this.get());
+    
+    // Convert snake_case to camelCase for frontend compatibility
+    return {
+      id: values.id,
+      name: values.name,
+      type: values.type,
+      industry: values.industry,
+      size: values.size,
+      website: values.website,
+      phone: values.phone,
+      email: values.email,
+      address: values.address,
+      city: values.city,
+      state: values.state,
+      country: values.country,
+      postalCode: values.postal_code,
+      parentOrganizationId: values.parent_organization_id,
+      status: values.status,
+      subscriptionPlan: values.subscription_plan,
+      subscriptionStatus: values.subscription_status,
+      subscriptionStartDate: values.subscription_start_date,
+      subscriptionEndDate: values.subscription_end_date,
+      maxUsers: values.max_users,
+      currentUsers: values.current_users,
+      settings: values.settings,
+      timezone: values.timezone,
+      currency: values.currency,
+      createdAt: values.created_at,
+      updatedAt: values.updated_at
+    };
+  };
+
   // Class methods
   Organization.findActive = function() {
     return this.findAll({

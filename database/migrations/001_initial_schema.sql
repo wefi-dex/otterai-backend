@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS users (
     phone VARCHAR(20),
     role VARCHAR(50) NOT NULL DEFAULT 'sales_representative',
     status VARCHAR(20) DEFAULT 'active',
-    organization_id UUID NOT NULL,
+    organization_id UUID,
     manager_id UUID,
     last_login_at TIMESTAMP,
     preferences JSONB DEFAULT '{}'::jsonb,
@@ -239,7 +239,7 @@ BEGIN
         SELECT 1 FROM pg_constraint WHERE conname = 'fk_users_organization'
     ) THEN
         ALTER TABLE users ADD CONSTRAINT fk_users_organization 
-            FOREIGN KEY (organization_id) REFERENCES organizations(id) ON DELETE CASCADE;
+            FOREIGN KEY (organization_id) REFERENCES organizations(id) ON DELETE SET NULL;
     END IF;
 END $$;
 

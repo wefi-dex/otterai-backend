@@ -2,7 +2,7 @@ const express = require('express');
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const { getSequelize } = require('../database/connection');
-const { generateToken, generateRefreshToken, verifyRefreshToken } = require('../middleware/auth');
+const { generateToken, generateRefreshToken, verifyRefreshToken, authenticateToken } = require('../middleware/auth');
 const { logger } = require('../utils/logger');
 const emailService = require('../services/emailService');
 const crypto = require('crypto');
@@ -88,7 +88,7 @@ router.post('/login', [
     const refreshToken = generateRefreshToken(user);
 
     // Update last login
-    await user.update({ lastLoginAt: new Date() });
+    await user.update({ last_login_at: new Date() });
 
     logger.logUserActivity(user.id, 'login', {
       email: user.email,
@@ -465,14 +465,13 @@ router.post('/logout', async (req, res) => {
  * @desc    Get current user profile
  * @access  Private
  */
-router.get('/me', async (req, res) => {
+router.get('/me', authenticateToken, async (req, res) => {
   try {
-    // This route would typically use authentication middleware
-    // For now, we'll return a placeholder
+    const user = req.user;
     res.status(200).json({
       success: true,
       data: {
-        message: 'User profile endpoint - requires authentication middleware'
+        user: user.toJSON()
       }
     });
   } catch (error) {
@@ -482,6 +481,81 @@ router.get('/me', async (req, res) => {
       error: {
         message: 'Failed to get profile',
         code: 'PROFILE_FETCH_FAILED'
+      }
+    });
+  }
+});
+
+/**
+ * @route   POST /api/v1/auth/setup-default-admin
+ * @desc    Create default super admin if not exists
+ * @access  Public (idempotent; rejects if user already exists)
+ */
+router.post('/setup-default-admin', async (req, res) => {
+  try {
+    const email = 'hello@admin.com';
+    const password = 'admin123';
+    const firstName = 'Default';
+    const lastName = 'Admin';
+    const organizationName = 'Admin Organization';
+
+    // If user already exists, return success (idempotent)
+    const existingUser = await getModels().User.findByEmail(email);
+    if (existingUser) {
+      return res.status(200).json({
+        success: true,
+        message: 'Default admin already exists',
+        data: {
+          user: existingUser.toJSON()
+        }
+      });
+    }
+
+    // Ensure an organization exists (create minimal one)
+    const organization = await getModels().Organization.create({
+      name: organizationName,
+      type: 'headquarters',
+      status: 'active',
+      subscription_plan: 'enterprise',
+      subscription_status: 'active',
+      max_users: 100,
+      settings: {},
+      currency: 'USD',
+      timezone: 'UTC'
+    });
+
+    // Create super admin user
+    const user = await getModels().User.create({
+      email,
+      password,
+      first_name: firstName,
+      last_name: lastName,
+      organization_id: organization.id,
+      role: 'super_admin',
+      status: 'active'
+    });
+
+    const accessToken = generateToken(user);
+    const refreshToken = generateRefreshToken(user);
+
+    res.status(201).json({
+      success: true,
+      message: 'Default admin created',
+      data: {
+        user: user.toJSON(),
+        organization: { id: organization.id, name: organization.name },
+        accessToken,
+        refreshToken,
+        expiresIn: process.env.JWT_EXPIRES_IN || '24h'
+      }
+    });
+  } catch (error) {
+    logger.error('Setup default admin error:', error);
+    res.status(500).json({
+      success: false,
+      error: {
+        message: 'Failed to setup default admin',
+        code: 'DEFAULT_ADMIN_FAILED'
       }
     });
   }

@@ -37,7 +37,9 @@ const io = new Server(server, {
     origin: process.env.SOCKET_CORS_ORIGIN?.split(',') || [
       "http://localhost:5173",
       "https://ridealong.ai",
-      "https://www.ridealong.ai"
+      "https://www.ridealong.ai",
+      "http://localhost:4000",
+      "http://localhost:3001"
     ],
     methods: ["GET", "POST"]
   }

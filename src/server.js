@@ -31,6 +31,9 @@ const { initializeSocketIO } = require('./socket/socketHandler');
 const app = express();
 const server = createServer(app);
 
+// Trust proxy for nginx (fixes express-rate-limit X-Forwarded-For error)
+app.set('trust proxy', true);
+
 // Initialize Socket.IO
 const io = new Server(server, {
   cors: {

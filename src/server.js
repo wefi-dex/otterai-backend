@@ -34,14 +34,9 @@ const server = createServer(app);
 // Initialize Socket.IO
 const io = new Server(server, {
   cors: {
-    origin: process.env.SOCKET_CORS_ORIGIN?.split(',') || [
-      "http://localhost:5173",
-      "https://ridealong.ai",
-      "https://www.ridealong.ai",
-      "http://localhost:4000",
-      "http://localhost:3001"
-    ],
-    methods: ["GET", "POST"]
+    origin: "*", // Allow all origins
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    credentials: false // Set to false when using wildcard origin
   }
 });
 // Initialize Socket.IO handlers
@@ -59,16 +54,12 @@ app.use(helmet({
   },
 }));
 
-// CORS configuration
+// CORS configuration - Allow all origins
 app.use(cors({
-  origin: process.env.CORS_ORIGIN?.split(',') || [
-    'http://localhost:5173',
-    'https://ridealong.ai',
-    'https://www.ridealong.ai'
-  ],
-  credentials: true,
+  origin: "*", // Allow all origins
+  credentials: false, // Set to false when using wildcard origin
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin']
 }));
 
 // Rate limiting

@@ -4,8 +4,43 @@ const { getSequelize } = require('../database/connection');
 const { requireRole } = require('../middleware/auth');
 const { logger } = require('../utils/logger');
 const { Op } = require('sequelize');
+const fs = require('fs');
+const path = require('path');
 
 const router = express.Router();
+
+// =============================================
+// Utility function to save input body data to special file
+// =============================================
+const saveInputDataToFile = (endpoint, data) => {
+  try {
+    const logsDir = path.join(process.cwd(), 'logs');
+    const inputDataDir = path.join(logsDir, 'input-data');
+    
+    // Ensure input-data directory exists
+    if (!fs.existsSync(inputDataDir)) {
+      fs.mkdirSync(inputDataDir, { recursive: true });
+    }
+    
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+    const filename = `${endpoint}-${timestamp}.json`;
+    const filepath = path.join(inputDataDir, filename);
+    
+    const inputData = {
+      timestamp: new Date().toISOString(),
+      endpoint: endpoint,
+      data: data
+    };
+    
+    fs.writeFileSync(filepath, JSON.stringify(inputData, null, 2));
+    logger.info(`Input data saved to file: ${filename}`);
+    
+    return filepath;
+  } catch (error) {
+    logger.error('Failed to save input data to file:', error);
+    return null;
+  }
+};
 
 // =============================================
 // Cloud Storage Upload (commented out for now)
@@ -55,6 +90,9 @@ router.post('/webhook/sales-call-completed', [
   body('eventType').isIn(['completed', 'analyzed', 'failed']).withMessage('Valid event type is required'),
   body('data').optional().isObject().withMessage('Data must be an object')
 ], async (req, res) => {
+  // Save input body data to special file
+  saveInputDataToFile('sales-call-completed', req.body);
+  
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -114,6 +152,9 @@ router.post('/webhook/performance-alert', [
   body('metrics').isObject().withMessage('Metrics object is required'),
   body('threshold').optional().isNumeric().withMessage('Threshold must be a number')
 ], async (req, res) => {
+  // Save input body data to special file
+  saveInputDataToFile('performance-alert', req.body);
+  
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -622,7 +663,9 @@ router.post('/actions/otterai-analyze', [
   body('salesCallId').optional().isUUID().withMessage('Valid sales call ID is required if provided'),
   body('organizationId').optional().isUUID().withMessage('Valid organization ID is required if provided'),
 ], async (req, res) => {
-  console.log('Received OtterAI analysis data:', req.body);
+  // Save input body data to special file
+  saveInputDataToFile('otterai-analyze', req.body);
+  
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

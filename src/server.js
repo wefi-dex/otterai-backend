@@ -32,7 +32,14 @@ const app = express();
 const server = createServer(app);
 
 // Trust proxy for nginx (fixes express-rate-limit X-Forwarded-For error)
-app.set('trust proxy', true);
+// Trust only the first proxy (nginx) to prevent IP spoofing while allowing X-Forwarded-For headers
+app.set('trust proxy', 1);
+
+// Alternative: More specific trust proxy configuration (uncomment if needed)
+// app.set('trust proxy', function (ip) {
+//   // Only trust nginx proxy (typically localhost or 127.0.0.1)
+//   return ip === '127.0.0.1' || ip === '::1' || ip === '::ffff:127.0.0.1';
+// });
 
 // Initialize Socket.IO
 const io = new Server(server, {

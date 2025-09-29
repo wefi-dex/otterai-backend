@@ -664,6 +664,7 @@ router.post('/actions/otterai-analyze', [
   body('organizationId').optional().isUUID().withMessage('Valid organization ID is required if provided'),
 ], async (req, res) => {
   // Save input body data to special file
+  console.log("req=============>", req.body)
   saveInputDataToFile('otterai-analyze', req.body);
   
   try {

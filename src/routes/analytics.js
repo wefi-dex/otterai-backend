@@ -77,7 +77,7 @@ router.get('/overview', authenticateToken, async (req, res) => {
       if (!salesRepStats[call.sales_representative_id]) {
         salesRepStats[call.sales_representative_id] = {
           id: call.sales_representative_id,
-          name: `${call.salesRepresentative.first_name} ${call.salesRepresentative.last_name}`,
+          name: `${call.salesRepresentative?.first_name} ${call.salesRepresentative?.last_name}`,
           totalCalls: 0,
           successfulSales: 0,
           totalRevenue: 0,

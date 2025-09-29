@@ -31,15 +31,33 @@ const { initializeSocketIO } = require('./socket/socketHandler');
 const app = express();
 const server = createServer(app);
 
-// Trust proxy for nginx (fixes express-rate-limit X-Forwarded-For error)
-// Trust only the first proxy (nginx) to prevent IP spoofing while allowing X-Forwarded-For headers
-app.set('trust proxy', 1);
+// Trust proxy configuration (required for correct client IPs behind reverse proxies like nginx)
+// Avoid boolean `true` which is considered permissive and breaks express-rate-limit safety checks.
+// Configure via env TRUST_PROXY (examples):
+// - TRUST_PROXY=1                        → trust first proxy (e.g., nginx)
+// - TRUST_PROXY=2                        → trust two proxies (e.g., Cloudflare → nginx)
+// - TRUST_PROXY=loopback                 → trust only loopback addresses
+// - TRUST_PROXY="loopback,linklocal,uniquelocal" → trust common private ranges
+(() => {
+  const raw = process.env.TRUST_PROXY || '1';
+  let setting;
 
-// Alternative: More specific trust proxy configuration (uncomment if needed)
-// app.set('trust proxy', function (ip) {
-//   // Only trust nginx proxy (typically localhost or 127.0.0.1)
-//   return ip === '127.0.0.1' || ip === '::1' || ip === '::ffff:127.0.0.1';
-// });
+  if (/^\d+$/.test(raw)) {
+    setting = parseInt(raw, 10);
+  } else if (raw.includes(',')) {
+    setting = raw.split(',').map(s => s.trim());
+  } else if (['loopback', 'linklocal', 'uniquelocal'].includes(raw)) {
+    setting = raw;
+  } else if (raw === 'true') {
+    // Prevent permissive setting; default safely to 1 instead
+    setting = 1;
+  } else {
+    // Fallback to trusting first proxy
+    setting = 1;
+  }
+
+  app.set('trust proxy', setting);
+})();
 
 // Initialize Socket.IO
 const io = new Server(server, {

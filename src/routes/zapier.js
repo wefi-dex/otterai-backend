@@ -659,9 +659,8 @@ router.post('/actions/otterai-analyze', [
   body('transcript_data').optional().isString().withMessage('Transcript data must be a string'),
   body('sentiment_analysis').optional().isObject().withMessage('Sentiment analysis must be an object'),
   body('user_identification').optional().isObject().withMessage('User identification must be an object'),
-  body('meeting_id').optional().isString().withMessage('Meeting ID must be a string'),
-  body('salesCallId').optional().isUUID().withMessage('Valid sales call ID is required if provided'),
-  body('organizationId').optional().isUUID().withMessage('Valid organization ID is required if provided'),
+  body('meeting_id').optional().isString().withMessage('Meeting ID must be a string')
+
 ], async (req, res) => {
   // Save input body data to special file
   console.log("req=============>", req.body)
@@ -903,10 +902,25 @@ router.post('/actions/otterai-analyze', [
     // Create analytics record if we have sentiment analysis data (optional - for reporting)
     if (sentiment_analysis && (createdSalesCallId || salesCallId)) {
       try {
-        const { Analytics } = getModels();
-        
+        const { Analytics, Organization } = getModels();
+
+        // Ensure organization exists before referencing it, otherwise set null to avoid FK violation
+        let analyticsOrganizationId = organizationId || null;
+        if (organizationId) {
+          try {
+            const org = await Organization.findByPk(organizationId);
+            if (!org) {
+              logger.warn(`Analytics create: organization ${organizationId} not found; setting organization_id to null to avoid FK violation`);
+              analyticsOrganizationId = null;
+            }
+          } catch (orgLookupError) {
+            logger.warn('Analytics create: organization lookup failed; setting organization_id to null', { error: String(orgLookupError) });
+            analyticsOrganizationId = null;
+          }
+        }
+
         await Analytics.create({
-          organization_id: organizationId || null, // Allow null for external webhooks
+          organization_id: analyticsOrganizationId, // Allow null for external webhooks
           user_id: null, // No userId available from Zapier
           report_type: 'otterai_analysis',
           report_name: `OtterAI Analysis - ${createdSalesCallId || salesCallId || meeting_id || 'General'}`,

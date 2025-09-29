@@ -229,6 +229,79 @@ const initializeDatabase = async () => {
       as: 'user'
     });
 
+    // Clean up orphaned foreign keys before syncing constraints
+    // This prevents FK creation failures when legacy rows reference missing parents
+    async function cleanOrphanedForeignKeys() {
+      try {
+        // Nullify invalid organization_id references across tables
+        await sequelize.query(`
+          UPDATE analytics SET organization_id = NULL
+          WHERE organization_id IS NOT NULL
+            AND organization_id NOT IN (SELECT id FROM organizations);
+        `);
+
+        await sequelize.query(`
+          UPDATE sales_calls SET organization_id = NULL
+          WHERE organization_id IS NOT NULL
+            AND organization_id NOT IN (SELECT id FROM organizations);
+        `);
+
+        await sequelize.query(`
+          UPDATE notifications SET organization_id = NULL
+          WHERE organization_id IS NOT NULL
+            AND organization_id NOT IN (SELECT id FROM organizations);
+        `);
+
+        await sequelize.query(`
+          UPDATE live_sessions SET organization_id = NULL
+          WHERE organization_id IS NOT NULL
+            AND organization_id NOT IN (SELECT id FROM organizations);
+        `);
+
+        await sequelize.query(`
+          UPDATE files SET organization_id = NULL
+          WHERE organization_id IS NOT NULL
+            AND organization_id NOT IN (SELECT id FROM organizations);
+        `);
+
+        // Optional: Nullify invalid user references where applicable
+        await sequelize.query(`
+          UPDATE analytics SET user_id = NULL
+          WHERE user_id IS NOT NULL
+            AND user_id NOT IN (SELECT id FROM users);
+        `);
+
+        await sequelize.query(`
+          UPDATE notifications SET user_id = NULL
+          WHERE user_id IS NOT NULL
+            AND user_id NOT IN (SELECT id FROM users);
+        `);
+
+        await sequelize.query(`
+          UPDATE sales_calls SET sales_representative_id = NULL
+          WHERE sales_representative_id IS NOT NULL
+            AND sales_representative_id NOT IN (SELECT id FROM users);
+        `);
+
+        await sequelize.query(`
+          UPDATE sales_calls SET manager_id = NULL
+          WHERE manager_id IS NOT NULL
+            AND manager_id NOT IN (SELECT id FROM users);
+        `);
+
+        await sequelize.query(`
+          UPDATE live_sessions SET user_id = NULL
+          WHERE user_id IS NOT NULL
+            AND user_id NOT IN (SELECT id FROM users);
+        `);
+
+      } catch (cleanupError) {
+        logger.warn('Foreign key cleanup encountered an issue:', cleanupError);
+      }
+    }
+
+    await cleanOrphanedForeignKeys();
+
     // Sync all models with database
     // In production, you should use migrations instead of sync
     // For development, we'll use force: false to avoid conflicts

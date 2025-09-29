@@ -658,9 +658,12 @@ router.get('/search/organizations', [
 router.post('/actions/otterai-analyze', async (req, res) => {
   // Save input body data to special file
   saveInputDataToFile('otterai-analyze', req.body);
-  
+  return res.status(200).json({
+    success: true,
+    message: 'OtterAI analyze data received successfully'
+  });
   try {
-    const errors = validationResult(req);
+    // const errors = validationResult(req);
     // if (!errors.isEmpty()) {
     //   return res.status(400).json({
     //     success: false,

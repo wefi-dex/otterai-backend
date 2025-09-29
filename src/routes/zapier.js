@@ -655,29 +655,22 @@ router.get('/search/organizations', [
  * @desc    Receive analyzed data from OtterAI via Zapier
  * @access  Public (OtterAI webhook)
  */
-router.post('/actions/otterai-analyze', [
-  body('transcript_data').optional().isString().withMessage('Transcript data must be a string'),
-  body('sentiment_analysis').optional().isObject().withMessage('Sentiment analysis must be an object'),
-  body('user_identification').optional().isObject().withMessage('User identification must be an object'),
-  body('meeting_id').optional().isString().withMessage('Meeting ID must be a string')
-
-], async (req, res) => {
+router.post('/actions/otterai-analyze', async (req, res) => {
   // Save input body data to special file
-  console.log("req=============>", req.body)
   saveInputDataToFile('otterai-analyze', req.body);
   
   try {
     const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({
-        success: false,
-        error: {
-          message: 'Validation failed',
-          code: 'VALIDATION_ERROR',
-          details: errors.array()
-        }
-      });
-    }
+    // if (!errors.isEmpty()) {
+    //   return res.status(400).json({
+    //     success: false,
+    //     error: {
+    //       message: 'Validation failed',
+    //       code: 'VALIDATION_ERROR',
+    //       details: errors.array()
+    //     }
+    //   });
+    // }
 
     const { 
       transcript, // Updated: transcript is now the URL

@@ -99,6 +99,7 @@ const limiter = rateLimit({
   },
   standardHeaders: true,
   legacyHeaders: false,
+  trustProxy: true, // Explicitly trust proxy for rate limiting
 });
 
 // Speed limiting
@@ -108,7 +109,8 @@ const speedLimiter = slowDown({
   delayMs: (used, req) => {
     const delayAfter = req.slowDown.limit;
     return (used - delayAfter) * 500;
-  }
+  },
+  trustProxy: true, // Explicitly trust proxy for speed limiting
 });
 
 app.use(limiter);

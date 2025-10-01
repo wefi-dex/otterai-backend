@@ -94,6 +94,10 @@ const defineSalesCall = (sequelize) => {
       type: DataTypes.STRING(500),
       allowNull: true
     },
+    transcript_text: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    },
     analysis_data: {
       type: DataTypes.JSONB,
       allowNull: true,

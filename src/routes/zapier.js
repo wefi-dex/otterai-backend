@@ -43,6 +43,14 @@ const saveInputDataToFile = (endpoint, data) => {
 };
 
 // =============================================
+// Utility function to validate UUID format
+// =============================================
+const isValidUUID = (str) => {
+  const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+  return uuidRegex.test(str);
+};
+
+// =============================================
 // Payload normalization for Zapier/OtterAI variations
 // - Accepts bodies wrapped in `data`
 // - Maps spaced/snake keys to camelCase
@@ -887,96 +895,108 @@ router.post('/actions/otterai-analyze', async (req, res) => {
         }
       }
 
+      // Check if salesCallId is a valid UUID, otherwise treat as OtterAI meeting ID
+      let existingSalesCall = null;
       if (salesCallId) {
-        // Update existing sales call
-        const salesCall = await SalesCall.findByPk(salesCallId);
-        if (salesCall) {
-          // Map sentiment category to valid values for updates too
-          let mappedSentiment = null;
-          if (sentiment_analysis?.sentiment_category) {
-            const sentiment = sentiment_analysis.sentiment_category.toLowerCase();
-            if (sentiment.includes('positive') || sentiment.includes('impressive') || sentiment.includes('good')) {
-              mappedSentiment = 'positive';
-            } else if (sentiment.includes('negative') || sentiment.includes('bad') || sentiment.includes('ugly')) {
-              mappedSentiment = 'negative';
-            } else {
-              mappedSentiment = 'neutral';
-            }
-          }
-
-          await salesCall.update({
-            analysis_data: analysisData,
-            transcript_url: transcript_url || salesCall.transcript_url, // Only set if a URL was provided
-            performance_score: performanceScore,
-            strengths: strengths,
-            weaknesses: weaknesses,
-            recommendations: [], // Can be populated from additional analysis
-            key_topics_covered: [], // Can be extracted from transcript analysis
-            objections_handled: [], // Can be extracted from transcript analysis
-            customer_sentiment: mappedSentiment,
-            script_compliance: null, // Can be calculated from transcript analysis
-            // Update meeting timing fields
-            call_start_time: meeting_details?.start_datetime ? new Date(meeting_details.start_datetime) : salesCall.call_start_time,
-            call_end_time: meeting_details?.end_datetime ? new Date(meeting_details.end_datetime) : salesCall.call_end_time,
-            duration: duration || salesCall.duration, // Update duration if provided
-            // Update recording fields
-            otter_ai_recording_id: meeting_id || salesCall.otter_ai_recording_id,
-            recording_url: captured_data_url || salesCall.recording_url, // Use new URL if provided, keep existing if not
-            // Set outcome to null as it's hidden
-            outcome: null
+        if (isValidUUID(salesCallId)) {
+          // salesCallId is a valid UUID - lookup by primary key
+          existingSalesCall = await SalesCall.findByPk(salesCallId);
+        } else {
+          // salesCallId is likely an OtterAI meeting ID - lookup by otter_ai_recording_id
+          existingSalesCall = await SalesCall.findOne({
+            where: { otter_ai_recording_id: salesCallId }
           });
-
-          logger.info(`Sales call ${salesCallId} updated with OtterAI analysis data`);
-          createdSalesCallId = salesCallId;
         }
+      }
+
+      if (existingSalesCall) {
+        // Map sentiment category to valid values for updates too
+        let mappedSentiment = null;
+        if (sentiment_analysis?.sentiment_category) {
+          const sentiment = sentiment_analysis.sentiment_category.toLowerCase();
+          if (sentiment.includes('positive') || sentiment.includes('impressive') || sentiment.includes('good')) {
+            mappedSentiment = 'positive';
+          } else if (sentiment.includes('negative') || sentiment.includes('bad') || sentiment.includes('ugly')) {
+            mappedSentiment = 'negative';
+          } else {
+            mappedSentiment = 'neutral';
+          }
+        }
+
+        await existingSalesCall.update({
+          analysis_data: analysisData,
+          transcript_url: transcript_url || existingSalesCall.transcript_url, // Only set if a URL was provided
+          transcript_text: transcript || existingSalesCall.transcript_text, // Store text content
+          performance_score: performanceScore,
+          strengths: strengths,
+          weaknesses: weaknesses,
+          recommendations: [], // Can be populated from additional analysis
+          key_topics_covered: [], // Can be extracted from transcript analysis
+          objections_handled: [], // Can be extracted from transcript analysis
+          customer_sentiment: mappedSentiment,
+          script_compliance: null, // Can be calculated from transcript analysis
+          // Update meeting timing fields
+          call_start_time: meeting_details?.start_datetime ? new Date(meeting_details.start_datetime) : existingSalesCall.call_start_time,
+          call_end_time: meeting_details?.end_datetime ? new Date(meeting_details.end_datetime) : existingSalesCall.call_end_time,
+          duration: duration || existingSalesCall.duration, // Update duration if provided
+          // Update recording fields
+          otter_ai_recording_id: meeting_id || existingSalesCall.otter_ai_recording_id,
+          recording_url: captured_data_url || existingSalesCall.recording_url, // Use new URL if provided, keep existing if not
+          // Set outcome to null as it's hidden
+          outcome: null
+        });
+
+        logger.info(`Sales call ${existingSalesCall.id} updated with OtterAI analysis data`);
+        createdSalesCallId = existingSalesCall.id;
       } else {
         // Create new sales call record - no userId required
-          // Map sentiment category to valid values
-          let mappedSentiment = null;
-          if (sentiment_analysis?.sentiment_category) {
-            const sentiment = sentiment_analysis.sentiment_category.toLowerCase();
-            if (sentiment.includes('positive') || sentiment.includes('impressive') || sentiment.includes('good')) {
-              mappedSentiment = 'positive';
-            } else if (sentiment.includes('negative') || sentiment.includes('bad') || sentiment.includes('ugly')) {
-              mappedSentiment = 'negative';
-            } else {
-              mappedSentiment = 'neutral';
-            }
+        // Map sentiment category to valid values
+        let mappedSentiment = null;
+        if (sentiment_analysis?.sentiment_category) {
+          const sentiment = sentiment_analysis.sentiment_category.toLowerCase();
+          if (sentiment.includes('positive') || sentiment.includes('impressive') || sentiment.includes('good')) {
+            mappedSentiment = 'positive';
+          } else if (sentiment.includes('negative') || sentiment.includes('bad') || sentiment.includes('ugly')) {
+            mappedSentiment = 'negative';
+          } else {
+            mappedSentiment = 'neutral';
           }
+        }
 
-          const salesCallData = {
-            organization_id: organizationId || null, // Allow null organization_id
-            sales_representative_id: null, // No userId available from Zapier
-            customer_name: user_info?.user_name || user_identification?.user_name || 'Unknown Customer',
-            customer_email: user_info?.user_email || user_identification?.user_email || null,
-            appointment_date: meeting_details?.start_datetime ? new Date(meeting_details.start_datetime) : new Date(), // Use meeting start time if available
-            call_start_time: meeting_details?.start_datetime ? new Date(meeting_details.start_datetime) : null,
-            call_end_time: meeting_details?.end_datetime ? new Date(meeting_details.end_datetime) : null,
-            status: 'completed', // Always completed when coming from OtterAI
-            outcome: null, // Hidden field - not needed
-            analysis_data: analysisData,
-            transcript_url: transcript_url || null,
-            performance_score: performanceScore,
-            strengths: strengths,
-            weaknesses: weaknesses,
-            recommendations: [], // Can be populated from additional analysis
-            key_topics_covered: [], // Can be extracted from transcript analysis
-            objections_handled: [], // Can be extracted from transcript analysis
-            customer_sentiment: mappedSentiment,
-            script_compliance: null, // Can be calculated from transcript analysis
-            // Add duration calculation from meeting details
-            duration: duration, // Calculated from meeting_details.duration
-            // Add recording fields
-            otter_ai_recording_id: meeting_id || null,
-            recording_url: captured_data_url || null,
-            // Remove sale_amount as it's not needed
-            sale_amount: null
-          };
+        const salesCallData = {
+          organization_id: (organizationId && isValidUUID(organizationId)) ? organizationId : null, // Only use valid UUIDs
+          sales_representative_id: null, // No userId available from Zapier
+          customer_name: user_info?.user_name || user_identification?.user_name || 'Unknown Customer',
+          customer_email: user_info?.user_email || user_identification?.user_email || null,
+          appointment_date: meeting_details?.start_datetime ? new Date(meeting_details.start_datetime) : new Date(), // Use meeting start time if available
+          call_start_time: meeting_details?.start_datetime ? new Date(meeting_details.start_datetime) : null,
+          call_end_time: meeting_details?.end_datetime ? new Date(meeting_details.end_datetime) : null,
+          status: 'completed', // Always completed when coming from OtterAI
+          outcome: null, // Hidden field - not needed
+          analysis_data: analysisData,
+          transcript_url: transcript_url || null,
+          transcript_text: transcript || null, // Store text content
+          performance_score: performanceScore,
+          strengths: strengths,
+          weaknesses: weaknesses,
+          recommendations: [], // Can be populated from additional analysis
+          key_topics_covered: [], // Can be extracted from transcript analysis
+          objections_handled: [], // Can be extracted from transcript analysis
+          customer_sentiment: mappedSentiment,
+          script_compliance: null, // Can be calculated from transcript analysis
+          // Add duration calculation from meeting details
+          duration: duration, // Calculated from meeting_details.duration
+          // Add recording fields
+          otter_ai_recording_id: meeting_id || null,
+          recording_url: captured_data_url || null,
+          // Remove sale_amount as it's not needed
+          sale_amount: null
+        };
 
-          const newSalesCall = await SalesCall.create(salesCallData);
-          createdSalesCallId = newSalesCall.id;
-          
-          logger.info(`New sales call ${createdSalesCallId} created with OtterAI analysis data (org: ${organizationId || 'none'})`);
+        const newSalesCall = await SalesCall.create(salesCallData);
+        createdSalesCallId = newSalesCall.id;
+        
+        logger.info(`New sales call ${createdSalesCallId} created with OtterAI analysis data (org: ${organizationId || 'none'})`);
       }
     } catch (salesCallError) {
       logger.error(`Error handling sales call:`, salesCallError);
@@ -990,7 +1010,7 @@ router.post('/actions/otterai-analyze', async (req, res) => {
 
         // Ensure organization exists before referencing it, otherwise set null to avoid FK violation
         let analyticsOrganizationId = organizationId || null;
-        if (organizationId) {
+        if (organizationId && isValidUUID(organizationId)) {
           try {
             const org = await Organization.findByPk(organizationId);
             if (!org) {
@@ -1001,6 +1021,9 @@ router.post('/actions/otterai-analyze', async (req, res) => {
             logger.warn('Analytics create: organization lookup failed; setting organization_id to null', { error: String(orgLookupError) });
             analyticsOrganizationId = null;
           }
+        } else if (organizationId && !isValidUUID(organizationId)) {
+          logger.warn(`Analytics create: organization ${organizationId} is not a valid UUID; setting organization_id to null`);
+          analyticsOrganizationId = null;
         }
 
         await Analytics.create({

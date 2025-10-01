@@ -61,6 +61,12 @@ router.get('/', authenticateToken, async (req, res) => {
       order: [['appointment_date', 'DESC']]
     });
 
+    // Debug: Log the first sales call to see what fields are included
+    if (salesCalls.rows.length > 0) {
+      console.log('First sales call data:', JSON.stringify(salesCalls.rows[0].toJSON(), null, 2));
+      console.log('transcript_text field:', salesCalls.rows[0].transcript_text);
+    }
+
     res.status(200).json({
       success: true,
       data: {
@@ -121,6 +127,10 @@ router.get('/:id', authenticateToken, async (req, res) => {
         }
       });
     }
+
+    // Debug: Log the sales call data
+    console.log('Individual sales call data:', JSON.stringify(salesCall.toJSON(), null, 2));
+    console.log('transcript_text field:', salesCall.transcript_text);
 
     res.status(200).json({
       success: true,

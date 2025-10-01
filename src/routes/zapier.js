@@ -43,6 +43,96 @@ const saveInputDataToFile = (endpoint, data) => {
 };
 
 // =============================================
+// Payload normalization for Zapier/OtterAI variations
+// - Accepts bodies wrapped in `data`
+// - Maps spaced/snake keys to camelCase
+// - Normalizes inner object keys
+// =============================================
+function normalizeOtterZapierPayload(rawBody) {
+  const body = rawBody && typeof rawBody === 'object' && rawBody.data ? rawBody.data : rawBody;
+
+  const isUrl = (value) => typeof value === 'string' && /^https?:\/\//i.test(value);
+  const pick = (obj, keys) => {
+    for (const key of keys) {
+      if (obj && Object.prototype.hasOwnProperty.call(obj, key) && obj[key] != null) {
+        return obj[key];
+      }
+    }
+    return undefined;
+  };
+
+  // Top-level fields (multiple possible key styles)
+  const transcriptCandidate = pick(body, ['transcript', 'transcript_data', 'transcript data']);
+  const capturedCandidate = pick(body, ['captured_data_url', 'captured_data', 'captured data url']);
+  const sentimentRaw = pick(body, ['sentiment_analysis', 'sentiment analysis']);
+  const userIdentificationRaw = pick(body, ['user_identification', 'user identification']);
+  const userInfoRaw = pick(body, ['user_info', 'user info']);
+  const meetingDetailsRaw = pick(body, ['meeting_details', 'meeting details']);
+  const meetingId = pick(body, ['meeting_id', 'meeting id']);
+  const salesCallId = pick(body, ['salesCallId', 'sales_call_id', 'sales call id']);
+  const organizationId = pick(body, ['organizationId', 'organization_id', 'organization id']);
+
+  // Normalize sentiment
+  let sentiment_analysis = undefined;
+  if (sentimentRaw && typeof sentimentRaw === 'object') {
+    sentiment_analysis = {
+      sentiment_category: pick(sentimentRaw, ['sentiment_category', 'sentiment category']),
+      strengths: pick(sentimentRaw, ['strengths']),
+      weaknesses: pick(sentimentRaw, ['weaknesses']),
+      meeting_score: pick(sentimentRaw, ['meeting_score', 'meeting score'])
+    };
+  } else if (typeof sentimentRaw !== 'undefined') {
+    sentiment_analysis = sentimentRaw;
+  }
+
+  // Normalize user identification/info
+  const normalizeUser = (u) => {
+    if (!u || typeof u !== 'object') return u;
+    return {
+      user_email: pick(u, ['user_email', 'user email', 'email']),
+      user_name: pick(u, ['user_name', 'user name', 'name']),
+      calendar_guests: pick(u, ['calendar_guests', 'calendar guests']),
+      meeting_id: pick(u, ['meeting_id', 'meeting id'])
+    };
+  };
+  const user_identification = normalizeUser(userIdentificationRaw);
+  const user_info = normalizeUser(userInfoRaw);
+
+  // Normalize meeting details
+  let meeting_details = undefined;
+  if (meetingDetailsRaw && typeof meetingDetailsRaw === 'object') {
+    meeting_details = {
+      duration: pick(meetingDetailsRaw, ['duration']),
+      start_datetime: pick(meetingDetailsRaw, ['start_datetime', 'start datetime']),
+      end_datetime: pick(meetingDetailsRaw, ['end_datetime', 'end datetime']),
+      created_at: pick(meetingDetailsRaw, ['created_at', 'created at']),
+      summary: pick(meetingDetailsRaw, ['summary']),
+      abstract_summary: pick(meetingDetailsRaw, ['abstract_summary', 'abstract summary'])
+    };
+  } else if (typeof meetingDetailsRaw !== 'undefined') {
+    meeting_details = meetingDetailsRaw;
+  }
+
+  // Separate transcript into URL vs text; recording url is always URL
+  const transcript_url = isUrl(transcriptCandidate) ? transcriptCandidate : null;
+  const transcript = !isUrl(transcriptCandidate) ? transcriptCandidate : null;
+  const captured_data_url = isUrl(capturedCandidate) ? capturedCandidate : null;
+
+  return {
+    transcript, // text if provided as raw content
+    transcript_url, // url if provided
+    captured_data_url, // url only
+    sentiment_analysis,
+    user_identification,
+    user_info,
+    meeting_id: meetingId,
+    meeting_details,
+    salesCallId,
+    organizationId
+  };
+}
+
+// =============================================
 // Cloud Storage Upload (commented out for now)
 // When ready, uncomment the lines below and ensure axios is installed
 // const axios = require('axios');
@@ -658,10 +748,7 @@ router.get('/search/organizations', [
 router.post('/actions/otterai-analyze', async (req, res) => {
   // Save input body data to special file
   saveInputDataToFile('otterai-analyze', req.body);
-  return res.status(200).json({
-    success: true,
-    message: 'OtterAI analyze data received successfully'
-  });
+  
   try {
     // const errors = validationResult(req);
     // if (!errors.isEmpty()) {
@@ -675,17 +762,18 @@ router.post('/actions/otterai-analyze', async (req, res) => {
     //   });
     // }
 
-    const { 
-      transcript, // Updated: transcript is now the URL
-      captured_data_url, // Updated: captured_data_url is the recording URL
+    const {
+      transcript, // raw text if provided
+      transcript_url, // url if provided
+      captured_data_url, // url only
       sentiment_analysis,
       user_identification,
-      user_info, // Add user_info parsing
+      user_info,
       meeting_id,
-      meeting_details, // Add meeting_details parsing
-      salesCallId, 
+      meeting_details,
+      salesCallId,
       organizationId
-    } = req.body;
+    } = normalizeOtterZapierPayload(req.body);
 
     // Helper function to format calendar guests
     const formatCalendarGuests = (guests) => {
@@ -749,7 +837,7 @@ router.post('/actions/otterai-analyze', async (req, res) => {
             calendar_guests_formatted: formatCalendarGuests(user_info?.calendar_guests)
           },
           meeting_details,
-          transcript: transcript || null,
+          transcript: transcript || transcript_url || null,
           captured_data_url: captured_data_url || null
         };
 
@@ -818,7 +906,7 @@ router.post('/actions/otterai-analyze', async (req, res) => {
 
           await salesCall.update({
             analysis_data: analysisData,
-            transcript_url: transcript || salesCall.transcript_url, // Use new URL if provided, keep existing if not
+            transcript_url: transcript_url || salesCall.transcript_url, // Only set if a URL was provided
             performance_score: performanceScore,
             strengths: strengths,
             weaknesses: weaknesses,
@@ -867,7 +955,7 @@ router.post('/actions/otterai-analyze', async (req, res) => {
             status: 'completed', // Always completed when coming from OtterAI
             outcome: null, // Hidden field - not needed
             analysis_data: analysisData,
-            transcript_url: transcript || null, // transcript is now the URL
+            transcript_url: transcript_url || null,
             performance_score: performanceScore,
             strengths: strengths,
             weaknesses: weaknesses,
@@ -880,7 +968,7 @@ router.post('/actions/otterai-analyze', async (req, res) => {
             duration: duration, // Calculated from meeting_details.duration
             // Add recording fields
             otter_ai_recording_id: meeting_id || null,
-            recording_url: captured_data_url || null, // captured_data_url is the recording URL
+            recording_url: captured_data_url || null,
             // Remove sale_amount as it's not needed
             sale_amount: null
           };
@@ -921,7 +1009,7 @@ router.post('/actions/otterai-analyze', async (req, res) => {
           report_type: 'otterai_analysis',
           report_name: `OtterAI Analysis - ${createdSalesCallId || salesCallId || meeting_id || 'General'}`,
           report_data: {
-            transcript: transcript || null,
+            transcript: transcript || transcript_url || null,
             captured_data_url: captured_data_url || null,
             sentiment_analysis,
             user_identification,

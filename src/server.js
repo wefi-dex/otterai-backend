@@ -82,10 +82,14 @@ app.use(helmet({
   },
 }));
 
-// CORS configuration - Allow all origins
+// CORS configuration - Allow specific origins including IP address
+const corsOrigins = process.env.CORS_ORIGIN ? 
+  process.env.CORS_ORIGIN.split(',').map(origin => origin.trim()) : 
+  ['http://localhost:3000', 'http://localhost:3001', 'http://50.6.224.219:3000', 'http://50.6.224.219'];
+
 app.use(cors({
-  origin: "*", // Allow all origins
-  credentials: false, // Set to false when using wildcard origin
+  origin: corsOrigins,
+  credentials: true, // Allow credentials for authenticated requests
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin']
 }));
